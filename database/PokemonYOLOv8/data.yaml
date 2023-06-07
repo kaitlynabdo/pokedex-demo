@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 22
+names: ['Arktos', 'Bisasam', 'Ditto', 'Elektek', 'Evoli', 'Glutexo', 'Karpador', 'Kleinstern', 'Lavados', 'Magmar', 'Mew', 'Mewtu', 'Pantimos', 'Pikachu', 'Pinsir', 'Raichu', 'Relaxo', 'Rossan', 'Sichlor', 'Tauros', 'Turtok', 'Zapdos']
+
+roboflow:
+  workspace: other-pokemon-datasets
+  project: pokemon-pictures
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/other-pokemon-datasets/pokemon-pictures/dataset/1

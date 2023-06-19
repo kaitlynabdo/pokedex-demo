@@ -43,6 +43,15 @@ virt-template-validator-8688f84c96-9msk7               1/1     Running   0      
 Going back to our Web Console, if we reload the page, we can see that a “**Virtualization**” tab has been added to the menu on the left side. 
 
 ## Create Virtual Machine
+It's time to create the virtual machine where the CVAT application will be deployed. In the "**Virtualization**" page, click on "**Create VM from catalog**". This will forward us to the catalag where all the different VM templates are listed. I will choose the "**CentOS Stream 9**" as the operating system for my VM. When we select it, a pop up window will appear on the right side of the page. Click on "**Customize VirtualMachine**" and complete the following fields:
+- **Name**: *cvat* (type your preferred name for the VM).
+- **Disk source**: *URL (creates PVC)*.
+- **Image URL**: *https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20220914.0.x86_64.qcow2*
+- **Disk size**: *40 GiB*
+- **CLOUD_USER_PASSWORD**: *«vm_password»*
+- **CPU | Memory**: *2CPU / 4GiB*
+
+Finally, select "**Create VirtualMachine**". 
 
 
 

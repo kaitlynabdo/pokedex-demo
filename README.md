@@ -1,4 +1,15 @@
-# Pokedex demo RHODS
+# Real-Time Video Analysis Pokédex™ with YOLO v8
+The objective of this project is develop a real-time detection system using artificial intelligence models (YOLO), leveraging some Red Hat technologies. This solution will enable efficient and accurate Pokemons location in video sequences, employing advanced deep learning techniques.
+
+## Infrastructure
+1. **[Single Node OpenShift installation using the Assisted Installer on baremetal]**
+2. **[Deploy the Computer Vision Annotation Tool (CVAT) on OpenShift Virtualization]**
+3. **[]**
+
+## AI Application
+1. **[YOLOv8 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)]**
+2. **[Pokedex application]**
+
 
 - Pokedex Image Classification: [here](https://github.com/dialvare/pokedex-demo/blob/main/Pokedex_Image_classification.ipynb)
 - Pokedex Video Classification: [here](https://github.com/dialvare/pokedex-demo/blob/main/Pokedex_Video_Classification.ipynb)

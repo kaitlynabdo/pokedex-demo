@@ -42,9 +42,6 @@ virt-template-validator-8688f84c96-9msk7               1/1     Running   0      
 
 Going back to our Web Console, if we reload the page, we can see that a “**Virtualization**” tab has been added to the menu on the left side. 
 
-## Namespace creation
-Before continuing, let's create a namespace where all the resources tailored to this demo will be deployed. Select "**Projects**" under the "**Home**" tab. There, you will see the blue button "**Create Project**". Name it as you prefer; I'll choose *pokedex* for this demo.
-
 ## Create Virtual Machine
 
 

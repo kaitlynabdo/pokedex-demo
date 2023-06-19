@@ -51,7 +51,7 @@ It's time to create the virtual machine where the CVAT application will be deplo
 - **CLOUD_USER_PASSWORD**: *«vm_password»*
 - **CPU | Memory**: *2CPU / 4GiB*
 
-Finally, select "**Create VirtualMachine**". 
+Finally, select "**Create VirtualMachine**" and wait until your virtual machine comes up.
 
 
 

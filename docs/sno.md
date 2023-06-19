@@ -52,6 +52,12 @@ NAME                          STATUS   ROLES                         AGE   VERSI
 r740.pemlab.rdu2.redhat.com   Ready    control-plane,master,worker   14d   v1.25.4+77bec7a
 ```
 
+## Namespace creation
+Before continuing, let's create a namespace where all the resources tailored to this demo will be deployed. The follwoing command will create the new project. Name it as you prefer; I'll choose *pokedex* for this demo:
+```
+oc new-project pokedex
+```
+
 ## [Optional] Set up Identity Provider
 
 

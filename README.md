@@ -1,4 +1,4 @@
-# Real-Time Video Analysis Pokédex™ with YOLO v8
+# [WIP] Real-Time Video Analysis Pokédex™ with YOLO v8
 The objective of this project is develop a real-time detection system using artificial intelligence models (YOLO), leveraging some Red Hat technologies. This solution will enable efficient and accurate Pokemons location in video sequences, employing advanced deep learning techniques.
 
 ## Infrastructure

@@ -1,6 +1,8 @@
 # Deploy the Computer Vision Annotation Tool (CVAT) on OpenShift Virtualization
 Now that we’ve got our Single Node OpenShift ready, we are good to install the OpenShift Virtualization Operator. This instance will allow us to create, run and manage virtual machines and virtualized workloads. The [Computer Vision Annotation Tool (CVAT)](https://github.com/opencv/cvat) is still not kubernetes compatible, but it is containerized. That's why we will need to use OpenShift Virtualization to make it work in our OpenShift node.
 
+## LVM Storage installation
+
 ## OpenShift Virtualization installation
 To proceed with the installation, in our Web Console, we need to navigate to the “**Operators**” tab and select “**OperatorHub**”. This will show us the marketplace integrated in OCP with the catalog and the different Operators availables. In the search box type *Virtualization* and the operator we are looking for will appear. Select it and click on “**Install**” on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case we can proceed with the default ones. Press “**Install**” again and wait until the installation finishes. 
 
@@ -39,6 +41,9 @@ virt-template-validator-8688f84c96-9msk7               1/1     Running   0      
 ```
 
 Going back to our Web Console, if we reload the page, we can see that a “**Virtualization**” tab has been added to the menu on the left side. 
+
+## Namespace creation
+Before continuing, let's create a namespace where all the resources tailored to this demo will be deployed. Select "**Projects**" under the "**Home**" tab. There, you will see the blue button "**Create Project**". Name it as you prefer; I'll choose *pokedex* for this demo.
 
 ## Create Virtual Machine
 

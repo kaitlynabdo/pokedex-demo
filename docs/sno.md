@@ -58,6 +58,8 @@ Before continuing, let's create a namespace where all the resources tailored to 
 oc new-project pokedex
 ```
 
+Remember also to select this project from the Project drop-down menu at the top left in the Web Console, when deploying the resources for our demo. 
+
 ## [Optional] Set up Identity Provider
 
 

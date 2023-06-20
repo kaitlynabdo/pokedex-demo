@@ -53,5 +53,19 @@ It's time to create the virtual machine where the CVAT application will be deplo
 
 Finally, select "**Create VirtualMachine**" and wait until your virtual machine comes up.
 
+We can access the new virtual machine from our terminal. Run the following command to get the virtual machine instance (vmi) name: 
+```
+oc get vmi
+```
+This will show you the vmi (*cvat* in my case):
+```
+NAME   AGE    PHASE     IP             NODENAME                      READY
+cvat   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
+```
+Use the name displayed above to access the virtual machine from your terminal:
+```
+virtcl console cvat
+```
+
 
 

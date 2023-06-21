@@ -137,12 +137,14 @@ curl localhost:8080
 ```
 Here will appear our application:
 ```
-        <meta
-            name="description"
-            content="Computer Vision Annotation Tool (CVAT) is a free, open source, web-based image and video annotation tool which is used for labeling data for computer vision algorithms. CVAT supports the primary tasks of supervised machine learning: object detection, image classification, and image segmentation. CVAT allows users to annotate data for each of these cases"
-        />
-        <meta name="”robots”" content="index, follow" />
-        <title>Computer Vision Annotation Tool</title>
+...
+  <meta
+      name="description"
+      content="Computer Vision Annotation Tool (CVAT) is a free, open source, web-based image and video annotation tool which is used for labeling data for computer vision algorithms. CVAT supports the primary tasks of supervised machine learning: object detection, image classification, and image segmentation. CVAT allows users to annotate data for each of these cases"
+  />
+  <meta name="”robots”" content="index, follow" />
+  <title>Computer Vision Annotation Tool</title>
+...
 ```
 
 Awesome! The final step will be exposing the URL, so we can access it. Exit the VM shell and run these commands:

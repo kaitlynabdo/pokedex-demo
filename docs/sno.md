@@ -61,8 +61,38 @@ oc new-project pokedex
 Remember also to select this project from the Project drop-down menu at the top left in the Web Console, when deploying the resources for our demo. 
 
 ## [Optional] Set up Identity Provider
+Instead of using the *kubeadmin* user, we can set up new users and give them the needed permissions. For this porupose we are going to configure an *htpasswd* identity provider. First of all, using the terminal, we will need to create the file that will contain the users and their passwords encrypted:
+```
+htpasswd -c -B -b ~/htpasswd user1 <password>
+```
 
+In case we need to add other users, the command will be quite similar to the previous one:
+```
+htpasswd -B -b ~/htpasswd user2 <password>
+```
 
+Now we can define the secret cointaining our users credentials:
+```
+oc create secret generic htpass-secret --from-file=htpasswd=~/htpasswd -n openshift-config 
+```
+
+Finally, modify the oauth to add the identity provider:
+```
+oc edit oauth cluster 
+```
+
+Add these lines:
+```
+...
+spec:
+  identityProviders:
+  - htpasswd:
+      fileData:
+        name: htpass-secret
+    mappingMethod: claim
+    name: Pokedex
+    type: HTPasswd
+```
 
 
 

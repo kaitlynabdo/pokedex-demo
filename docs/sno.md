@@ -93,7 +93,11 @@ spec:
     name: Pokedex
     type: HTPasswd
 ```
-
+In case you want to perform admin activities in the cluster with your user, you'll need to assign it admin permissions. Run this command for this pourpose:
+```
+oc adm policy add-cluster-role-to-user cluster-admin user1
+```
+Now log out from the Web Console and log in again with your new user. And that's all!
 
 
 

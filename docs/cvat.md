@@ -6,8 +6,21 @@ Our virtual machines will need some kind of storage. That's why we will need to 
 
 Once the installation finishes successfully, we will need to create the Logical Volume Manager Cluster operand. If we go to ""**Installed Operators**" in the "**Operators**" tab, we will see a list with all our operators deployed in our cluster. Select the LVM Storage operator and then, click "**Create LVMCluster**". This will guide us to the configuration form. HEre we can change some of the parameters, like the instance name, device class, etc. We can keep the dfaults here too, so we can directly press the ""**Create**" button.
 
+Track the pods deployment process by running this command on your terminal:
+```
+watch oc get pods -n openshift-storage
+```
+We will know that the installation has finished when the pods' status shows *Running*:
+```
+NAME                                  READY   STATUS    RESTARTS         AGE
+lvms-operator-789d78c76d-8fbsb        3/3     Running   22 (7d13h ago)   39d
+topolvm-controller-5496f5d4f4-bd9wd   5/5     Running   36 (7d13h ago)   39d
+topolvm-node-gl4qq                    4/4     Running   1 (16d ago)      39d
+vg-manager-bwfg6                      1/1     Running   0                39d
+```
+
 ## OpenShift Virtualization installation
-To proceed with the installation, in our Web Console, we need to navigate to the “**Operators**” tab and select “**OperatorHub**”. In the search box type *Virtualization* and the operator we are looking for will appear. Select it and click on “**Install**” on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case we can proceed with the default ones. Press “**Install**” again and wait until the installation finishes. 
+It's time to proceed with the Virtualization installation. In our Web Console, we need to navigate to the “**Operators**” tab and select “**OperatorHub**”. In the search box type *Virtualization* and the operator we are looking for will appear. Select it and click on “**Install**” on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case we can proceed with the default ones. Press “**Install**” again and wait until the installation finishes. 
 
 Once completed, we will need to “**Create HyperConverged**” custom resource. Again, we can omit changing any configuration. Finally, click “**Create**” to launch the OpenShift Virtualization installation. Wait until the Status says “**Reconcile completed, Available**”.
 
@@ -15,7 +28,7 @@ We can verify the installation progress from the terminal window. All OpenShift 
 ```
 watch oc get pods -n openshift-cnv
 ```
-Once all the pods are up the output should look similar to this:
+Once all the pods are up, the output should look similar to this:
 ```
 NAME                                                   READY   STATUS    RESTARTS      AGE
 bridge-marker-b2lvf                                    1/1     Running   0             12d

@@ -77,6 +77,10 @@ nvidia-driver-daemonset-412.86.202301061548-0-kpkjp   2/2     Running     0     
 nvidia-node-status-exporter-6chdx                     1/1     Running     0          15d
 nvidia-operator-validator-jj8c4                       1/1     Running     0          15d
 ```
+
+## Enable Image Registry Operator
+On platforms that do not provide shareable object storage, the OpenShift Image Registry Operator bootstraps itself as Removed. This allows openshift-installer to complete installations on these platform types. 
+
 Now it's time to install the RHODS Operator!
 
 ## RHODS installation

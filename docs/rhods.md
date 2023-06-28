@@ -1,8 +1,26 @@
 # Red Hat OpenShift Data Science (RHODS) set up with GPU enablement
 Red Hat OpenShift Data Science (RHODS) is built on the robust foundation of Red Hat OpenShift, this cutting-edge solution combines the scalability and flexibility of containerization with the capabilities of machine learning and data analytics. With Red Hat OpenShift Data Science, data scientists and developers can efficiently collaborate, deploy, and manage their models and applications in a secure and streamlined environment.
 
+## LVM Storage installation
+Before proceeding with the RHODS installation, there are a couple of pre-requirements we need to meet. First of all, we will need some kind of storage in our cluster. That's why we will need to install the Logical Volume Manager Storage (LVMS). In the OCP Web Console, navigate to "**Operators**" section on the left-hand menu and click "**OperatorHub**". This will show us the marketplace integrated in OCP with the catalog and the different Operators available. In the search field, type *LVM*. Once you see the LVM Storage Operator, select it and press "**Install**". Then we will get to the configuration page. We will keep the defaults there. Then, click "**Install**" again. 
+
+Once the installation finishes successfully, we will need to create the Logical Volume Manager Cluster operand. If we go to ""**Installed Operators**" in the "**Operators**" tab, we will see a list with all our operators deployed in our cluster. Select the LVM Storage operator and then, click "**Create LVMCluster**". This will guide us to the configuration form. HEre we can change some of the parameters, like the instance name, device class, etc. We can keep the dfaults here too, so we can directly press the ""**Create**" button.
+
+Track the pods deployment process by running this command on your terminal:
+```
+watch oc get pods -n openshift-storage
+```
+We will know that the installation has finished when the pods' status shows *Running*:
+```
+NAME                                  READY   STATUS    RESTARTS         AGE
+lvms-operator-789d78c76d-8fbsb        3/3     Running   22 (7d13h ago)   39d
+topolvm-controller-5496f5d4f4-bd9wd   5/5     Running   36 (7d13h ago)   39d
+topolvm-node-gl4qq                    4/4     Running   1 (16d ago)      39d
+vg-manager-bwfg6                      1/1     Running   0                39d
+```
+
 ## Node Feature Discovery installation
-Before proceeding with the RHODS installation, lets focus on configuring our node so the GPU is detected. Red Hat’s supported approach is using the NVIDIA GPU Operator, but before installing it, there are a couple of prior requirements we need to accomplish. The first one will be installing the Node Feature Discovery Operator (NFD). This operator will manage the detection of hardware features and configuration in our OpenShift cluster. To do it, we need to go back to the Web Console and select the “**OperatorHub**” section under “**Operators**”. Once there, we need to type *NFD* in the text box and, we will get two results. In my case I will install the operator that is supported by “**Red Hat**”. Click on “**Install**”. This will prompt us with a second page with different configurable parameters. Let’s just keep them by default and press the blue “**Install**” button. 
+ lets focus on configuring our node so the GPU is detected. Red Hat’s supported approach is using the NVIDIA GPU Operator, but before installing it, there are a couple of prior requirements we need to accomplish. The first one will be installing the Node Feature Discovery Operator (NFD). This operator will manage the detection of hardware features and configuration in our OpenShift cluster. To do it, we need to go back to the Web Console and select the “**OperatorHub**” section under “**Operators**”. Once there, we need to type *NFD* in the text box and, we will get two results. In my case I will install the operator that is supported by “**Red Hat**”. Click on “**Install**”. This will prompt us with a second page with different configurable parameters. Let’s just keep them by default and press the blue “**Install**” button. 
 
 Once finished, we need to create a NFD instance. In the NFD Operator, under Node Feature Discovery, select “**Create instance**” and, as we did before, keep the default values and click “**Create**”. This instance proceeds to label the GPU node.
 

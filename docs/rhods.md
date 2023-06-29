@@ -101,6 +101,8 @@ Also, change the managementState field from *Removed* to *Managed*:
 managementState: Managed
 ```
 
+The PVC will be created as *ReadWriteMany(RWX)*. In our SNO we will need to use *ReadWriteOnce*. The PVC cannot be modified, so we will need to delete the existing on eand recreate it modifying the *accessMode*. In the Web Console, go to the "**Storage**" section and select the "**PersistentVolumeClaimes**"
+
 Now it's time to install the RHODS Operator!
 
 ## RHODS installation

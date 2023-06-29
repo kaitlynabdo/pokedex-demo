@@ -79,7 +79,27 @@ nvidia-operator-validator-jj8c4                       1/1     Running     0     
 ```
 
 ## Enable Image Registry Operator
-On platforms that do not provide shareable object storage, the OpenShift Image Registry Operator bootstraps itself as Removed. This allows openshift-installer to complete installations on these platform types. 
+On platforms that do not provide shareable object storage, the OpenShift Image Registry Operator bootstraps itself as *Removed*. This allows openshift-installer to complete installations on these platform types. RHODS will require enabling the image registry again in order to be able to deploy the workbenches. First of all, ensure you don't have any running pods in the *openshift-image-registry* namespace:
+```
+oc get pod -n openshift-image-registry -l docker-registry=default
+```
+
+We're good to continue. Now we will need to edit the registry configuration: 
+```
+oc edit configs.imageregistry.operator.openshift.io
+```
+
+Under *storage* include the following lines, making sure you leave the *claim* name blank, as the PVC will be created automatically:
+```
+storage:
+  pvc:
+    claim:
+```
+
+Also, change the managementState field from *Removed* to *Managed*:
+```
+managementState: Managed
+```
 
 Now it's time to install the RHODS Operator!
 

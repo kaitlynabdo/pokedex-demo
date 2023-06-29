@@ -3,7 +3,7 @@ The objective of this project is develop a real-time detection system using arti
 
 ## Steps
 1. **[Single Node OpenShift installation using the Assisted Installer on baremetal](https://github.com/dialvare/pokedex-demo/blob/main/docs/sno.md)**
-2. **[Infrastructure configuration](https://github.com/dialvare/pokedex-demo/blob/main/docs/rhods.md)**
+2. **[Infrastructure configuration](https://github.com/dialvare/pokedex-demo/blob/main/docs/infra.md)**
 3. **[Red Hat OpenShift Data Science (RHODS) deployment](https://github.com/dialvare/pokedex-demo/blob/main/docs/rhods.md)**
 4. **[Deploy the Computer Vision Annotation Tool (CVAT) on OpenShift Virtualization](https://github.com/dialvare/pokedex-demo/blob/main/docs/cvat.md)**
 5. **[Labeling a custom dataset using the CVAT application]**

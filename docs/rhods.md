@@ -10,5 +10,9 @@ watch oc get pods -n redhat-ods-operator
 ```
 Once the status is *Ready*, the deployment has finished sucessfully.
 
-## Create Data Science Project
+### Create Data Science Project
+To access the RHODS Web Console, we can get ir from the OCP Console. In the right side of the top bar, you will find an "**square icon**" formed by 9 smaller squares. Clik on it and select "**Red Hat OpenShift Data Science**". A new window will open. Log in again using your OpenShift credentials (kubeadmin or Identity provider user). Once we are logged, in the landing page we will see a layout similar to the one we have in the OpenShift Web Console. In the left-handed menu, navigate to the "**Data Science Projects**" tab. Next, click "**Create data science project**" and type your preferred project names; in our case *pokedex*. Then press "**Create**". 
+
+### Create Workbech
+
 

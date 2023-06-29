@@ -10,7 +10,7 @@ The objective of this project is develop a real-time detection system using arti
 6. **[YOLOv8 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)]**
 7. **[Pokedex application]**
 
-
+## Notebooks
 - Pokedex Image Classification: [here](https://github.com/dialvare/pokedex-demo/blob/main/Pokedex_Image_classification.ipynb)
 - Pokedex Video Classification: [here](https://github.com/dialvare/pokedex-demo/blob/main/Pokedex_Video_Classification.ipynb)
 - **Pokedex YOLOv5:** [here](https://github.com/dialvare/pokedex-demo/blob/main/Pokedex_YOLO_v5.ipynb)

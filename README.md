@@ -8,7 +8,7 @@ The objective of this project is develop a real-time detection system using arti
 4. **[Deploy the Computer Vision Annotation Tool (CVAT) on OpenShift Virtualization](https://github.com/dialvare/pokedex-demo/blob/main/docs/cvat.md)**
 5. **[Labeling a custom dataset using the CVAT application]**
 6. **[YOLOv8 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)]**
-7. **[Pokedex application]**
+7. **[Pokedex application deployment]()**
 
 ## Notebooks
 - Pokedex Image Classification: [here](https://github.com/dialvare/pokedex-demo/blob/main/Pokedex_Image_classification.ipynb)

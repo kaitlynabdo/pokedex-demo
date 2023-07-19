@@ -53,7 +53,7 @@ curl -o ~/yolov8/inputs/test.jpg https://raw.githubusercontent.com/rdcolema/tens
 
 Finally, it's time to test our model: 
 ```
-podman run -it --rm -v ~/yolov8:/yolov8 yolov8 detect predict save model=yolov8s.pt source=inputs/test.jpg
+podman run -it --rm -v ~/yolov8:/yolov8 yolov8 detect predict save model=best.pt source=inputs/pokemon.mp4
 ```
 
 

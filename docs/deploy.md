@@ -60,6 +60,11 @@ Finally, it's time to test our model:
 podman run -it --rm -v ~/yolov8:/yolov8 yolov8 detect predict save model=best.pt source=inputs/pokemon.mp4
 ```
 
+Note: If we embeded our weights and input video in the container image, we can refer those internal files from the container:
+```
+podman run -it --rm yolov8 detect predict save model=best.pt source=pokemon.mp4
+```
+
 
 
 

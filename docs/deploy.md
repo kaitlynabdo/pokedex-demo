@@ -40,6 +40,21 @@ RUN apt-get update \
 ENTRYPOINT ["yolo"]
 ```
 
+[Optional] Using RHEL as base image:
+```
+FROM registry.access.redhat.com/ubi9/ubi:latest
+#MAINTAINER dialvare "dialvare@redhat.com"
+
+WORKDIR /yolov8
+
+RUN yum update \
+    && yum install -y mesa-libGL python3 python3-pip \
+    && pip3 install ultralytics \
+    && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["yolo"]
+```
+
 Build the image:
 ```
 podman build -t yolov8 .

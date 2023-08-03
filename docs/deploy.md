@@ -80,7 +80,34 @@ Note: If we embeded our weights and input video in the container image, we can r
 podman run -it --rm yolov8 detect predict save model=best.pt source=pokemon.mp4
 ```
 
+# Enable display on Mac
+We need to install XQuartz to display graphical interfaces. XQuartz allows cross-platform applications using X11 for the GUI to run on macOS, many of which are not specifically designed for macOS.
 
+Open a Terminal and install the app:
+```
+brew install xquartz
+```
+
+Once completed, open it and enable *'Allow connections from network clients'* under *Security* settings.
+
+Then, enable *X11Forwarding*:
+```
+sudo vi /etc/ssh/sshd_config
+```
+```
+...
+#X11Forwarding yes
+...
+```
+ Finally, configure the display:
+```
+export DISPLAY='IP:0.0'
+```
+
+The configuration is ready. It's time to test it:
+```
+xeyes
+```
 
 
 

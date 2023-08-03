@@ -101,7 +101,7 @@ sudo vi /etc/ssh/sshd_config
 ```
  Finally, configure the display:
 ```
-export DISPLAY='IP:0.0'
+export DISPLAY='127.0.0.1:0.0'
 ```
 
 The configuration is ready. It's time to test it:

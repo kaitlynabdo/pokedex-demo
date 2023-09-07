@@ -9,16 +9,12 @@ mkdir yolov8 && cd yolov8
 **Inside this folder we need to download our *best.pt* weights obtained after training the model**
 
 
-Also, I'm going to create a folder to store all the input images:
+Also, I'm going to create a folder to store all the input videos:
 ```
 mkdir -p ~/yolov8/inputs
 ```
 
-Download an example image there:
-```
-curl -o ~/yolov8/inputs/test.jpg https://raw.githubusercontent.com/rdcolema/tensorflow-image-classification/master/cat.jpg
-```
-
+## Running the model as a Container
 Now, let's define ur *Containerfile* with all the YOLO dependencies:
 ```
 vi Containerfile
@@ -80,38 +76,62 @@ Note: If we embeded our weights and input video in the container image, we can r
 podman run -it --rm yolov8 detect predict save model=best.pt source=pokemon.mp4
 ```
 
-# Enable display on Mac
-We need to install XQuartz to display graphical interfaces. XQuartz allows cross-platform applications using X11 for the GUI to run on macOS, many of which are not specifically designed for macOS.
+## Running the model on MicroShift
 
-Open a Terminal and install the app:
+Create the folder we are going to use for the Flask server and the one with the weights file:
 ```
-brew install xquartz
-```
-
-Once completed, open it and enable *'Allow connections from network clients'* under *Security* settings.
-
-Then, enable *X11Forwarding*:
-```
-sudo vi /etc/ssh/sshd_config
-```
-```
-...
-#X11Forwarding yes
-...
-```
- Finally, configure the display:
-```
-export DISPLAY='127.0.0.1:0.0'
+mkdir -p ~/yolov8/server
+mkdir -p ~/yolov8/server/weights
 ```
 
-The configuration is ready. It's time to test it:
+Copy again the weights obtained after training and navigate to the server folder:
 ```
-xeyes
+cp ~/yolov8/best.pt ~/yolov8/server/weights/
+cd ~/yolov8/server
 ```
 
+Now, let's define ur *Containerfile* with all the Flask dependencies:
+```
+vi Containerfile
+```
+```
+FROM registry.redhat.io/ubi8/python-36:latest
 
+RUN pip3 install flask
+WORKDIR /app
 
+USER 501
 
+COPY *.py /app
+COPY weights /app/weights
 
+# set default flask app and environment
+ENV FLASK_APP flaskr
 
+# Default cmd when container is started. Use --host to make Flask listen on all networks inside the container
+CMD python3 -m flask run --host=0.0.0.0
+~                                        
+```
+
+Create the server script:
+```
+vi server.py
+```
+
+Build the Flask image:
+```
+podman build -t cam-server .
+```
+
+It wil take some time, but once finished you can list the images by running this command:
+```
+podman images
+```
+```
+REPOSITORY                           TAG         IMAGE ID      CREATED         SIZE
+localhost/cam-server                 latest      bf924f7a55ff  13 minutes ago  1.07 GB
+registry.redhat.io/ubi8/python-36    latest      eeed06f16c30  2 weeks ago     853 MB
+localhost/yolov8                     latest      caf9f1fba48a  5 weeks ago     7.96 GB
+docker.io/library/ubuntu             22.04       5a81c4b8502e  2 months ago    80.3 MB
+```
 

@@ -2,7 +2,7 @@
 The objective of this project is develop a real-time detection system using artificial intelligence models (YOLO), leveraging some Red Hat technologies. This solution will enable efficient and accurate Pokemons location in video sequences, employing advanced deep learning techniques.
 
 ## Steps
-1. **[Single Node OpenShift installation using the Assisted Installer on baremetal](https://github.com/dialvare/pokedex-demo/blob/main/docs/sno.md)**
+1. **[Single Node OpenShift installation using the Assisted Installer on baremetal](docs/sno.md)**
 2. **[Infrastructure configuration](https://github.com/dialvare/pokedex-demo/blob/main/docs/infra.md)**
 3. **[Red Hat OpenShift Data Science (RHODS) deployment](https://github.com/dialvare/pokedex-demo/blob/main/docs/rhods.md)**
 4. **[Deploy the Computer Vision Annotation Tool (CVAT) on OpenShift Virtualization](https://github.com/dialvare/pokedex-demo/blob/main/docs/cvat.md)**

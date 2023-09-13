@@ -9,5 +9,5 @@ The objective of this project is develop a real-time detection system using arti
 5. **[Labeling a custom dataset using the CVAT application]**
 6. **[Labeling a custom dataset using Label Studio]**
 7. **[YOLOv8 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](Notebooks/Pokedex_YOLO_v8.ipynb)**
-8. **[Pokedex application deployment using Podman](docs/deploy_conatiner.md)**
+8. **[Pokedex application deployment using Podman](docs/deploy_container.md)**
 9. **[Pokedex application deployment using MicroShift](docs/deploy_microshift.md)**

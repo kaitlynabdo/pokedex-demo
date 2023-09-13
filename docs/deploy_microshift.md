@@ -19,8 +19,8 @@ If your *vg*'s name is *'rhel'* you can skip this part. If not you'll need to co
 cat <<EOF > $HOME/lvmd.yaml 
 socket-name:
 device-classes:
-  - name: vmdisk
-    volume-group: vmdisk
+  - name: rhel_ibm-p8-kvm-03-guest-02
+    volume-group: rhel_ibm-p8-kvm-03-guest-02
     spare-gb: 10
     default: true
 EOF
@@ -93,7 +93,45 @@ openshift-storage          topolvm-controller-5fccfdf45c-cf9g7        5/5     Ru
 openshift-storage          topolvm-node-xkxsh                         4/4     Running   18 (108m ago)   28h
 ```
 
+## Building the image
+Navigate to the *`container`* folder: 
+```
+cd container/ && ls
+```
+```
+Containerfile		pokemon.mp4		redhat.py_websocket
+best.pt			redhat.py		templates
+```
 
+Before continuing, let's take a look to the Containerfile:
+```
+vi Containerfile
+```
+```
+# Use an official Python runtime as the base image
+FROM registry.access.redhat.com/ubi9/python-311
 
+# Set the working directory in the container
+WORKDIR /app
 
+# Copy the code into the container
+COPY . /app
+
+USER root
+RUN dnf install -y libpng
+
+# Install Python dependencies
+RUN pip install opencv-python-headless Pillow numpy flask flask_socketio eventlet gevent gevent-websocket
+RUN git clone https://github.com/ultralytics/yolov5 && cd yolov5 && sed -i s/'opencv-python>'/'opencv-python-headless>'/g requirements.txt && pip install -r requirements.txt && pip uninstall -y opencv-python && pip install --force-reinstall opencv-python-headless
+
+# Expose the port if needed
+EXPOSE 5000
+
+ENV LD_LIBRARY_PATH=/usr/lib64:/usr/lib64/openmpi/lib/:$LD_LIBRARY_PATH
+
+USER 1001
+
+# Run the script when the container launches
+CMD ["python3", "redhat.py"]
+```
 

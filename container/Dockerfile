@@ -4,9 +4,6 @@ FROM registry.access.redhat.com/ubi9/python-311
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the code into the container
-COPY . /app
-
 USER root
 RUN dnf install -y libpng
 
@@ -20,6 +17,8 @@ EXPOSE 5000
 ENV LD_LIBRARY_PATH=/usr/lib64:/usr/lib64/openmpi/lib/:$LD_LIBRARY_PATH
 
 USER 1001
+# Copy the code into the container
+COPY . /app
 
 # Run the script when the container launches
 CMD ["python3", "redhat.py"]

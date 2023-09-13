@@ -7,5 +7,5 @@ The objective of this project is develop a real-time detection system using arti
 3. **[Red Hat OpenShift Data Science (RHODS) deployment](docs/rhods.md)**
 4. **[Deploy the Computer Vision Annotation Tool (CVAT) on OpenShift Virtualization](docs/cvat.md)**
 5. **[Labeling a custom dataset using the CVAT application]**
-6. **[YOLOv8 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](Pokedex_YOLO_v8.ipynb)**
+6. **[YOLOv8 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](Notebooks/Pokedex_YOLO_v8.ipynb)**
 7. **[Pokedex application deployment](docs/deploy.md)**

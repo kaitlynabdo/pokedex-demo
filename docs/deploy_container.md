@@ -1,0 +1,137 @@
+# Pokedex application deployment
+
+We are going to deploy our Pokedex application to the edge using Podman. In our case, the edge device will be a laptop. Make sure you have installed Podman in your device.
+
+Let's build the container image that will run our model. Create a new folder and navigate into it:
+```
+mkdir yolov8 && cd yolov8
+```
+**Inside this folder we need to download our *best.pt* weights obtained after training the model**
+
+
+Also, I'm going to create a folder to store all the input videos:
+```
+mkdir -p ~/yolov8/inputs
+```
+
+## Running the model as a Container
+Now, let's define ur *Containerfile* with all the YOLO dependencies:
+```
+vi Containerfile
+```
+```
+FROM ubuntu:22.04
+
+WORKDIR /yolov8
+
+ADD https://ultralytics.com/assets/Arial.ttf /root/.config/Ultralytics/
+
+COPY best.pt /inputs/pokemon.mp4 /inputs/test.mp4 /yolov8
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y libgl1-mesa-glx libglib2.0-0 python3 python3-pip \
+    && pip3 install ultralytics \
+    && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["yolo"]
+```
+
+[Optional] Using RHEL as base image:
+```
+FROM registry.access.redhat.com/ubi9/ubi:latest
+#MAINTAINER dialvare "dialvare@redhat.com"
+
+WORKDIR /yolov8
+
+RUN yum update \
+    && yum install -y mesa-libGL python3 python3-pip \
+    && pip3 install ultralytics \
+    && rm -rf /var/lib/apt/lists/*
+
+ENTRYPOINT ["yolo"]
+```
+
+Build the image:
+```
+podman build -t yolov8 .
+```
+
+It wil take some time, but once finished you can list the images by running this command:
+```
+podman images
+```
+```
+REPOSITORY                TAG         IMAGE ID      CREATED         SIZE
+localhost/yolov8          latest      1cb5c1d869a3  58 minutes ago  7.74 GB
+docker.io/library/ubuntu  22.04       5a81c4b8502e  2 weeks ago     80.3 MB
+```
+
+Finally, it's time to test our model: 
+```
+podman run -it --rm -v ~/yolov8:/yolov8 yolov8 detect predict save model=best.pt source=inputs/pokemon.mp4
+```
+
+Note: If we embeded our weights and input video in the container image, we can refer those internal files from the container:
+```
+podman run -it --rm yolov8 detect predict save model=best.pt source=pokemon.mp4
+```
+
+## Running the model on MicroShift
+
+Create the folder we are going to use for the Flask server and the one with the weights file:
+```
+mkdir -p ~/yolov8/server
+mkdir -p ~/yolov8/server/weights
+```
+
+Copy again the weights obtained after training and navigate to the server folder:
+```
+cp ~/yolov8/best.pt ~/yolov8/server/weights/
+cd ~/yolov8/server
+```
+
+Now, let's define ur *Containerfile* with all the Flask dependencies:
+```
+vi Containerfile
+```
+```
+FROM registry.redhat.io/ubi8/python-36:latest
+
+RUN pip3 install flask
+WORKDIR /app
+
+USER 501
+
+COPY *.py /app
+COPY weights /app/weights
+
+# set default flask app and environment
+ENV FLASK_APP flaskr
+
+# Default cmd when container is started. Use --host to make Flask listen on all networks inside the container
+CMD python3 -m flask run --host=0.0.0.0
+~                                        
+```
+
+Create the server script:
+```
+vi server.py
+```
+
+Build the Flask image:
+```
+podman build -t cam-server .
+```
+
+It wil take some time, but once finished you can list the images by running this command:
+```
+podman images
+```
+```
+REPOSITORY                           TAG         IMAGE ID      CREATED         SIZE
+localhost/cam-server                 latest      bf924f7a55ff  13 minutes ago  1.07 GB
+registry.redhat.io/ubi8/python-36    latest      eeed06f16c30  2 weeks ago     853 MB
+localhost/yolov8                     latest      caf9f1fba48a  5 weeks ago     7.96 GB
+docker.io/library/ubuntu             22.04       5a81c4b8502e  2 months ago    80.3 MB
+```
+

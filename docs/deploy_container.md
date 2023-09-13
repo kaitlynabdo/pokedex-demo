@@ -1,4 +1,4 @@
-# Pokedex application deployment
+# Pokedex application deployment using Podman
 
 We are going to deploy our Pokedex application to the edge using Podman. In our case, the edge device will be a laptop. Make sure you have installed Podman in your device.
 

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pokedex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pokedex
+  template:
+    metadata:
+      labels:
+        app: pokedex
+    spec:
+      containers:
+        - name: pokedex
+          image: quay.io/dialvare/pokedex:latest
+          ports:
+            - containerPort: 5000
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+          - "hackfest"
+      args:
+        - "/etc/hosts"

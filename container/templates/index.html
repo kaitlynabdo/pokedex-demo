@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Image Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+</head>
+<body>
+    <h1>WebSocket Image Viewer</h1>
+    <div id="image-container"></div>
+
+    <script>
+        // Connect to the WebSocket server
+        const socket = io.connect('http://orin.dherouville.home:5000');
+
+        // Handle new image frames received from the server
+        socket.on('image', function (data) {
+            // Create an <img> element to display the image
+            const image = document.createElement('img');
+            image.src = 'data:image/jpeg;base64,' + data;
+
+            // Append the image to the container
+            const container = document.getElementById('image-container');
+            container.innerHTML = '';
+            container.appendChild(image);
+        });
+    </script>
+</body>
+</html>
+

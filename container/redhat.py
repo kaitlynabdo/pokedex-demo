@@ -55,7 +55,7 @@ def read_video():
 def get_image():
     global stream
     args = request.args
-    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
+    video_path = args.get("video", default=os.environ.get("VIDEO", "/app/pokemon.mp4"), type=str)
     stream = cv2.VideoCapture(video_path)
     t=threading.Thread(target=read_video)
     t.start()
@@ -66,10 +66,10 @@ def get_image():
 @app.route('/', methods=['GET'])
 def index():
     args = request.args
-    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
+    video_path = args.get("video", default=os.environ.get("VIDEO", "/app/pokemon.mp4"), type=str)
     return f"""
+    <head><title>{video_path}</title></head>
     <body style="background: black;">
-        <h2>{video_path}</h2>
         <div style="width: 240px; margin: 0px auto;">
             <img src="/mjpeg?video={video_path}" />
         </div>

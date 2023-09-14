@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: pokedex
-          image: quay.io/dialvare/pokedex:latest
+          image: quay.io/purefield0/pokedex:latest
           ports:
             - containerPort: 5000
           env:
             - name: VIDEO
-              value: https://www3.cde.ca.gov/download/rod/big_buck_bunny.mp4
+              value: https://github.com/kaitlynabdo/pokedex-demo/raw/main/container/pokemon.mp4
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

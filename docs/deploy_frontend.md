@@ -178,3 +178,12 @@ Check the IP:
 ```
 oc get svc
 ```
+
+```
+NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP   10.43.0.1     <none>        443/TCP          10h
+pokedex-service   NodePort    10.43.39.87   <none>        5000:30000/TCP   4h18m
+frontend-service  NodePort    10.43.160.80  <none>        9000:30000/TCP   4s
+```
+
+Finally, access the *`10.43.160.80:9000`* URL from a Web Browser.

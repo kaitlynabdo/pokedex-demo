@@ -212,8 +212,80 @@ podman login quay.io
 podman push quay.io/dialvare/pokedex:latest
 ```
 
+## Deploying the model
+Navigate to the *`x86`* folder. Take a look at the object we are going to deploy:
+```
+vi deployment_pokedex.yaml
+```
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pokedex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pokedex
+  template:
+    metadata:
+      labels:
+        app: pokedex
+    spec:
+      containers:
+        - name: pokedex
+          image: quay.io/dialvare/pokedex:latest
+          ports:
+            - containerPort: 5000
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+            runAsNonRoot: true
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+          - "hackfest"
+      args:
+        - "/etc/hosts"
+```
 
+As can be seen, we will deploy the image we have just built. Run the following command to create the resource:
+```
+oc apply -f deployment_pokedex.yaml --insecure-skip-tls-verify=true
+```
 
+Once the pod is running, we need to deploy the service:
+```
+vi svc_pokedex.yaml
+```
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: pokedex-service
+spec:
+  selector:
+    app: pokedex
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30000   # Specify the desired NodePort value here
+  type: NodePort       # Use NodePort type for the service
+```
 
+Check the IP: 
+```
+oc get svc
+```
+```
+NAME              TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP   10.43.0.1     <none>        443/TCP          10h
+pokedex-service   NodePort    10.43.39.87   <none>        5000:30000/TCP   4h18m
+```
 
+Finally, access the *`10.43.39.87:5000`* URL from a Web Browser.
 

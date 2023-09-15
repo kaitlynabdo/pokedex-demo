@@ -213,8 +213,7 @@ podman push quay.io/dialvare/pokedex:latest
 ```
 
 ## Deploying the model
-Navigate to the *`x86`* folder. 
-Navigate to the *`container`* folder: 
+Navigate to the *`x86`* folder:
 ```
 cd x86/ && ls
 ```

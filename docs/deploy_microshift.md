@@ -5,30 +5,6 @@ Create a new Virtual Machine and install RHEL 9.2 there. You can get the RHEL 9.
 ## Configuring MicroShift
 Now it's time to install MicroShift. We just need to follow the official documentation available in the [Product page](https://access.redhat.com/documentation/en-us/red_hat_build_of_microshift/4.13/html/installing/microshift-install-rpm). 
 
-One of the requirement is using *'rhel'* as name for the volume group. You can check it by running the following command:
-```
-sudo vgs
-```
-```
-  VG                          #PV #LV #SN Attr   VSize   VFree 
-  rhel_ibm-p8-kvm-03-guest-02   2   2   0 wz--n- <60.72g 30.48g
-```
-
-If your *vg*'s name is *'rhel'* you can skip this part. If not you'll need to configure LVMS for MicroShift. Create the following file and copy it to the MicroShift configuration path:
-```
-cat <<EOF > $HOME/lvmd.yaml 
-socket-name:
-device-classes:
-  - name: rhel_ibm-p8-kvm-03-guest-02
-    volume-group: rhel_ibm-p8-kvm-03-guest-02
-    spare-gb: 10
-    default: true
-EOF
-```
-```
-sudo cp lvmd.yaml /etc/microshift/
-```
-
 In our case, we also had to extend the volume group to get some *VFree* space. This was the process we followed: 
 ```
 sudo lsblk

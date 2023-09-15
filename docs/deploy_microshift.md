@@ -201,7 +201,7 @@ if __name__ == '__main__':
 
 As you can see, we are using the weights file *`best.pt`* and the *`pokemon.mp4`* video file we had on the folder. 
 
-Now we can build the image. We will tag it to match our quay.io repoirtoy url:
+Now we can build the image. We will tag it to match our quay.io repository url:
 ```
 podman build -t quay.io/dialvare/pokedex:latest .
 ```

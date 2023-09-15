@@ -1,4 +1,4 @@
-# Pokedex application deployment using Podman
+# Pokedex application deployment using MicroShift
 We are going to use a RHEL 9.2 Virtual Machine where we are going to simulate an x86 edge device deployment. 
 Create a new Virtual Machine and install RHEL 9.2 there. You can get the RHEL 9.2 Boot iso (x86) image from the [Red Hat Developer page](https://developers.redhat.com/products/rhel/download#rhel-new-product-download-list-61451). 
 

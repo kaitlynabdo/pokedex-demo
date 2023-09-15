@@ -11,4 +11,4 @@ The objective of this project is develop a real-time detection system using arti
 7. **[YOLOv8 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](Notebooks/Pokedex_YOLO_v8.ipynb)**
 8. **[Pokedex application deployment using Podman](docs/deploy_container.md)**
 9. **[Pokedex application deployment using MicroShift](docs/deploy_microshift.md)**
-10. **[Dynamic video file selection front-end](docs/deploy_frontend.md)
+10. **[Dynamic video file selection front-end](docs/deploy_frontend.md)**

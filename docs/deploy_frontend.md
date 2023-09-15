@@ -11,26 +11,29 @@ Let's take a look at the Containerfile:
 vi Containerfile
 ```
 ```
-#We will use the base image for building the Flask container
+#We will the base image for building the Flask container
 FROM registry.access.redhat.com/ubi9/python-311
 
 # It specifies the working directory where the Docker container will run
 WORKDIR /app
 
+# Copying all the application files to the working directory
+COPY . /app
+
 # Install all the dependencies required to run the Flask application
 RUN pip install -r requirements.txt
 
-# Expose the Docker container for the application to run on port 5000
+# Expose the Docker container for the application to run on port 9000
 EXPOSE 9000
-
-# Copying all the application files to the working directory
-COPY . /app
 
 # The command required to run the Dockerized application
 CMD ["python", "/app/app.py"]
 ```
 
 This Container will use an ubi9 + python image as a base. Then, we will need to install the python requirements. The image will also contain the code present in app.py. Let's take a look at it:
+```
+vi app.py
+```
 ```
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename

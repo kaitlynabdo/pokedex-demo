@@ -213,7 +213,16 @@ podman push quay.io/dialvare/pokedex:latest
 ```
 
 ## Deploying the model
-Navigate to the *`x86`* folder. Take a look at the object we are going to deploy:
+Navigate to the *`x86`* folder. 
+Navigate to the *`container`* folder: 
+```
+cd x86/ && ls
+```
+```
+apply.sh  delete.sh  deployment_frontend.yaml  deployment_pokedex.yaml  monitor.sh  svc_frontend.yaml  svc_pokedex.yaml
+```
+
+Take a look at the object we are going to deploy:
 ```
 vi deployment_pokedex.yaml
 ```

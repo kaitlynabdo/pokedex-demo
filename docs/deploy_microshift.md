@@ -277,6 +277,11 @@ spec:
   type: NodePort       # Use NodePort type for the service
 ```
 
+Apply the template:
+```
+oc apply -f svc_pokedex.yaml --insecure-skip-tls-verify=true
+```
+
 Check the IP: 
 ```
 oc get svc

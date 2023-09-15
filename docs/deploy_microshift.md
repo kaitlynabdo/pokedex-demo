@@ -75,7 +75,7 @@ Navigate to the *`container`* folder:
 cd container/ && ls
 ```
 ```
-Containerfile		best.pt			pokemon.mp4		redhat.py		redhat.py_websocket	templates
+Containerfile		best.pt			pokemon.mp4		app.py		redhat.py_websocket	templates
 ```
 
 Before continuing, let's take a look to the Containerfile:
@@ -107,13 +107,13 @@ USER 1001
 COPY . /app
 
 # Run the script when the container launches
-CMD ["python3", "redhat.py"]
+CMD ["python3", "app.py"]
 ```
 
-This Container will use an *ubi9* + *python* image as a base. Then, we will need to install the python dependencies and clone the YOLO repository. The image will also contain the code present in *`redhat.py`*.
+This Container will use an *ubi9* + *python* image as a base. Then, we will need to install the python dependencies and clone the YOLO repository. The image will also contain the code present in *`app.py`*.
 Let's take a look to it:
 ```
-vi redhat.py
+vi app.py
 ```
 ```
 #!/bin/env python3

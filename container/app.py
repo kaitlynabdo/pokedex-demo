@@ -55,7 +55,7 @@ def read_video():
 def get_image():
     global stream
     args = request.args
-    video_path=args.get("video", defualt='/app/pokemon.mp4', type=str)
+    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
     stream = cv2.VideoCapture(video_path)
     t=threading.Thread(target=read_video)
     t.start()

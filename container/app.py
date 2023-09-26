@@ -19,7 +19,8 @@ model = torch.hub.load('yolov5', 'custom', path='/app/best.pt', source='local')
 
 app = Flask(__name__)
 
-stream = None
+video_path = '/app/pokemon.mp4'
+stream = cv2.VideoCapture(video_path)
 results = None
 results_lock = None
 
@@ -53,30 +54,33 @@ def read_video():
 
 @app.route('/mjpeg')
 def get_image():
-    global stream
-    args = request.args
-    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
-    stream = cv2.VideoCapture(video_path)
-    t=threading.Thread(target=read_video)
-    t.start()
+#    global stream
+#    args = request.args
+#    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
+#    stream = cv2.VideoCapture(video_path)
+#    t=threading.Thread(target=read_video)
+#    t.start()
 
     return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
-    args = request.args
-    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
-    return f"""
+#    args = request.args
+#    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
+    return """
     <body style="background: black;">
-        <h2>{video_path}</h2>
+#        <h2>{video_path}</h2>
         <div style="width: 240px; margin: 0px auto;">
-            <img src="/mjpeg?video={video_path}" />
+            <img src="/mjpeg" />
         </div>
     </body>
     """
 
 
 if __name__ == '__main__':
+    t=threading.Thread(target=read_video)
+    t.start()
+    
     app.run(host='0.0.0.0', port=5000, threaded=True)
 

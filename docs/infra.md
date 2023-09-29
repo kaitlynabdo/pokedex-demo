@@ -121,7 +121,7 @@ Once deleted we can recreate it again. To do so, click on "**Create PersistentVo
 - **Size**: `100 GiB`
 - **Volume mode**: `Filesystem`
 
-In a few seconds you see the PVC status as *Bound*:
+In a few seconds you see the PVC status as `Bound`:
 
 ![Image Registry enablement](/docs/images/infra_pvc_bound.png)
 

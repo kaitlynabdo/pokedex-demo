@@ -4,7 +4,7 @@ Althohgt our Single Node OpenShift is already installed, there are a couple of p
 ## LVM Storage installation
 First of all, we will need some kind of storage in our cluster. That's why we will need to install the Logical Volume Manager Storage (LVMS) operator. In the OCP Web Console, navigate to "**Operators**" section on the left-hand menu and click "**OperatorHub**". This will show us the marketplace integrated in OCP with the catalog and the different Operators available. In the search field, type `LVMS`. Once you see the "**LVM Storage**" operator, select it and press "**Install**". We will get to the configuration page. Keep the defaults there and click "**Install**" again. 
 
-
+![Logical Volume Manager Storage Operator](/docs/images/infra_lvms.png)
 
 Once the installation finishes successfully, we will need to create the Logical Volume Manager Cluster operand. If we go to "**Installed Operators**" in the "**Operators**" tab, we will see a list with all our operators already deployed in our cluster. Select the "**LVM Storage**" operator and then, click "**Create LVMCluster**". This will guide us to the configuration form. Here we can change some of the parameters, like the instance name, device class, etc. We can keep the defaults here too, so we can directly press the ""**Create**" button.
 
@@ -25,7 +25,7 @@ vg-manager-bwfg6                      1/1     Running   0                39d
 ## Node Feature Discovery installation
 Now, lets focus on configuring our node so the GPU can be detected. Red Hat’s supported approach is using the NVIDIA GPU Operator, but before installing it, there are a couple of prior requirements we need to accomplish. The first one will be installing the Node Feature Discovery Operator (NFD). This operator will manage the detection of hardware features and configuration in our OpenShift cluster. To do it, we need to go back to the Web Console and select again the "**OperatorHub**" section under "**Operators**". Once there, we need to type `NFD` in the text box and, we will get two results. In my case I will install the operator that is supported by "**Red Hat**". Click on "**Install**". This will prompt us with a second page with different configurable parameters. Let’s just keep them by default and press the blue "**Install**" button. 
 
-
+![Node Feature Discovery Operator](/docs/images/infra_nfd.png)
 
 Once finished, we need to create a NFD instance. In the "**NFD Operator**", under *Node Feature Discovery*, select "**Create instance**" and, as we did before, keep the default values and click "**Create**". This instance proceeds to label the GPU node.
 
@@ -62,7 +62,7 @@ All right! The Node Feature Operator has been installed correctly, so we can jum
 ## NVIDIA GPU Operator installation
 Now we are ready to install the NVIDIA GPU Operator. Again, navigate to "**OperatorHub**" and type here `NVIDIA`. Select the "**NVIDIA GPU Operator**" and click on "**Install**". Keep the default parameters and click again "**Install**".
 
-
+![NVIDIA GPU Operator](/docs/images/infra_gpu.png)
 
 Once the Operator is installed, we can proceed with the *ClusterPolicy* creation. To deploy the instance, select the "**NVIDIA GPU Operator**" and click on “**Create instance**” in the *ClusterPolicy* section. Again, keep the default values and click “**Create**”.
 

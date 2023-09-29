@@ -36,6 +36,7 @@ Finally, all we need to do is reboot the system. Click on "**Power Off System**"
 
 Once finished and back to the OpenShift Red Hat Hybrid Cloud Console, we will be able to see our machine automatically recognised and listed in the *Host Inventory* section. Make sure to check the “Status” displayed is `Ready`:
 
+![Host discovery node](docs/images/sno_host_discovery.png)
 
 At this point we can directly jump to the end of the process. Click "**Next**" to navigate to the *Storage* section, where we can list all the disks present in our node. Click "**Next**" again, and that will guide you to the *Networking* section. The environment where the node we are using has already configured all the networking infrastructure, so all we have to do is select the "**Machine network**" IP range we want to use. To configure your environment network, please refer to the [OpenShift networking documentation](https://docs.openshift.com/container-platform/4.13/installing/installing_bare_metal/installing-bare-metal.html#installation-network-user-infra_installing-bare-metal).
 

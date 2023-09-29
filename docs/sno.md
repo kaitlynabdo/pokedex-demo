@@ -46,19 +46,20 @@ Now we are ready to proceed with the SNO installation. Click "**Next**" to see a
 ## SNO installation
 The installer will complete automatically all the steps needed to have our node up and running. We can track this process through this progress bar. It should take some time to finish the installation:
 
-
-
+![Installation complete](/docs/images/sno_installation.png)
 
 ## Accessing the SNO
 Once the installation has finished, we can access the OpenShift node using the credentials provided under the Installation bar. You should be able to spot the URL to the Web console, the kubeadmin user and the password that we will use to authenticate. Click on "**Launch OpenShift Console**". A new pop-up window will appear. To access the web console we need beforehand to configure our machine to resolve its hostname. We can do it by either adding the record to the DNS server or locally in our `/etc/hosts` configuration file. Copy and paste the entries there and click again "**Launch OpenShift Console**".
 
-
-
-
+![Hostname detection](/docs/images/sno_webconsole_config.png)
 
 You will probably see a warning message complaining about the security of the page, but we can safely ignore it. Once on the logging page, we will use the credentials provided after the SNO installation. By this, finally we successfully logged into the Single Node OpenShift Web Console!
 
-For this demo, we will also use the Command Line to run most of the commands. To connect to our SNO, once on the the Web Console, click on our current user "**kube:admin**" in the upper right corner and select "**Copy logging command**". This will open a new tab in our web browser. If we click on "**Display token**", we can copy the `oc login` command shown and paste it into our terminal. Now run the following command to ensure everything is settled correctly:
+For this demo, we will also use the Command Line to run most of the commands. To connect to our SNO, once on the the Web Console, click on our current user "**kube:admin**" in the upper right corner and select "**Copy logging command**". This will open a new tab in our web browser. If we click on "**Display token**", we can copy the `oc login` command shown and paste it into our terminal:
+
+![Login command](/docs/images/sno_login_command.png)
+
+Now run the following command to ensure everything is settled correctly:
 ```
 oc get node
 ```

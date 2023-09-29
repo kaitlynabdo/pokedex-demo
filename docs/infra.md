@@ -1,5 +1,5 @@
 # Infrastructure configuration
-Althohgt our Single Node OpenShift is already installed, there are a couple of pre-requirements we need to meet before proceeding with the Red Hat OpenShift Data Science (RHODS) installation.
+Although our Single Node OpenShift is already installed, there are a couple of pre-requirements we need to meet before proceeding with the Red Hat OpenShift Data Science (RHODS) installation.
 
 ## LVM Storage installation
 First of all, we will need some kind of storage in our cluster. That's why we will need to install the Logical Volume Manager Storage (LVMS) operator. In the OCP Web Console, navigate to "**Operators**" section on the left-hand menu and click "**OperatorHub**". This will show us the marketplace integrated in OCP with the catalog and the different Operators available. In the search field, type `LVMS`. Once you see the "**LVM Storage**" operator, select it and press "**Install**". We will get to the configuration page. Keep the defaults there and click "**Install**" again. 
@@ -23,7 +23,7 @@ vg-manager-bwfg6                      1/1     Running   0                39d
 ```
 
 ## Node Feature Discovery installation
-Now, lets focus on configuring our node so the GPU can be detected. Red Hat’s supported approach is using the NVIDIA GPU Operator, but before installing it, there are a couple of prior requirements we need to accomplish. The first one will be installing the Node Feature Discovery Operator (NFD). This operator will manage the detection of hardware features and configuration in our OpenShift cluster. To do it, we need to go back to the Web Console and select again the "**OperatorHub**" section under "**Operators**". Once there, we need to type `NFD` in the text box and, we will get two results. In my case I will install the operator that is supported by "**Red Hat**". Click on "**Install**". This will prompt us with a second page with different configurable parameters. Let’s just keep them by default and press the blue "**Install**" button. 
+Now, let's focus on configuring our node so the GPU can be detected. Red Hat’s supported approach is using the NVIDIA GPU Operator, but before installing it, there are a couple of prior requirements we need to accomplish. The first one will be installing the Node Feature Discovery Operator (NFD). This operator will manage the detection of hardware features and configuration in our OpenShift cluster. To do it, we need to go back to the Web Console and select again the "**OperatorHub**" section under "**Operators**". Once there, we need to type `NFD` in the text box, we will get two results. In my case I will install the operator that is supported by "**Red Hat**". Click on "**Install**". This will prompt us with a second page with different configurable parameters. Let’s just keep them by default and press the blue "**Install**" button. 
 
 ![Node Feature Discovery Operator](/docs/images/infra_nfd.png)
 
@@ -100,7 +100,7 @@ We're good to continue. Now we will need to edit the registry configuration:
 oc edit configs.imageregistry.operator.openshift.io
 ```
 
-Under *storage* include the following lines, making sure you leave the `claim` name blank. This way, the PVC will be created automatically:
+Under *storage* include the following lines, making sure you leave the *claim* name blank. This way, the PVC will be created automatically:
 ```
 storage:
   pvc:
@@ -112,13 +112,20 @@ Also, change the *managementState* field from *Removed* to *Managed*:
 managementState: Managed
 ```
 
-The PVC will be created as *ReadWriteMany(RWX)*. In our SNO we will need to use *ReadWriteOnce*. The PVC cannot be modified, so we will need to delete the existing on eand recreate it modifying the *accessMode*. In the Web Console, go to the "**Storage**" section and select the "**PersistentVolumeClaims**". Make sure you have selected the "**Project: openshift-image-registry**" on the top of the page. Then, you will see the *image-registry-storage* PVC. Click on the three dots on the right side and select "**Delete PersistentVolumeClaims**". 
+The PVC will be created as *ReadWriteMany(RWX)*. However, we will need to use *ReadWriteOnce*. The PVC cannot be modified, so we will need to delete the existing one and recreate it modifying the *accessMode*. In the Web Console, go to the "**Storage**" section and select "**PersistentVolumeClaims**". Make sure you have selected the "**Project: openshift-image-registry**" on the top of the page. Then, you will see the "**image-registry-storage**" PVC. Click on the three dots on the right side and select "**Delete PersistentVolumeClaim**". 
 
-Once deleted we can recreate it again. To do so, click on "**Create PersistentVolumeClaim with Form**", complete the following fields and click "**Create**":
-- **StorageClass**: *lvms-vg1*
-- **PersistentVolumeClaim name**: *image-registry-storage*
-- **AccessMode**: *Single User (RWO)*
-- **Size**: *100 GiB*
-- **Volume mode**: *Filesystem*
+Once deleted we can recreate it again. To do so, click on "**Create PersistentVolumeClaim**" and complete the following fields. Then, click "**Create**":
+- **StorageClass**: `lvms-vg1`
+- **PersistentVolumeClaim name**: `image-registry-storage`
+- **AccessMode**: `Single User (RWO)`
+- **Size**: `100 GiB`
+- **Volume mode**: `Filesystem`
 
-Once you seethe PVC status as *Bound*, we can continue to the RHODS installation.
+In a few seconds you see the PVC status as *Bound*:
+
+![Image Registry enablement](/docs/images/infra_pvc_bound.png)
+
+With this last step we have completed the installation and configuration of the necessary infrastructure for our project. In the next section we will cover the [Red Hat OpenShift Data Science (RHODS) deployment](https://github.com/dialvare/pokedex-demo/blob/main/docs/rhods.md).
+
+
+

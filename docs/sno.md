@@ -70,12 +70,6 @@ NAME                          STATUS   ROLES                         AGE   VERSI
 r740.pemlab.rdu2.redhat.com   Ready    control-plane,master,worker   14d   v1.26.7+c7ee51f
 ```
 
-## Namespace creation
-Before continuing, let's create a namespace where all the resources tailored to this demo will be deployed. The following command will create the new project. Name it as you prefer; I'll choose `pokedex` for this demo:
-```
-oc new-project pokedex
-```
-
 ## [Optional] Set up Identity Provider
 Instead of using the *kubeadmin* user, we can set up new users and give them the needed permissions. For this purpose we are going to configure an *htpasswd* identity provider. First of all, using the terminal, we will need to create the file that will contain the users and their passwords encrypted:
 ```

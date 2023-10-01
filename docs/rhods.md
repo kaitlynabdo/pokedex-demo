@@ -35,7 +35,7 @@ Once completed the form, please click on "**Create workbench**". You should have
 
 ![RHODS project](/docs/images/rhods_project.png)
 
-That's it! Now you can access the Workbench Interface clicking on "**Open**" and log in using your credentials. At this point, we are ready to start with the AI model configuration and training, but we will cover it in the next chapter: [YOLOv5 training on Red Hat OpenShift Data Science (RHODS)](https://github.com/dialvare/pokedex-demo/blob/main/docs/training.md).
+That's it! Now you can access the Workbench Interface clicking on "**Open**" and log in using your credentials. At this point, we are ready to start with the dataset preparation for training the AI model, but we will cover it in the next chapter: [Labeling a custom dataset using Label Studio](https://github.com/dialvare/pokedex-demo/blob/main/docs/labeling.md).
 > **Note**
 > It is likely you will need to add the url to the `/etc/hosts` file as we did before with the RHODS console.
 

@@ -8,7 +8,7 @@ As a starting point, let’s navigate to the [OpenShift Red Hat Hybrid Cloud Con
 
 ### Cluster details
 As you can see there are plenty of fields that we can configure in our cluster:
-- **Cluster name**: *`pokedex`* (insert any preferred name)
+- **Cluster name**: *`pokedex`* (insert any preferred name).
 - **Base domain**: *`pemlab.rdu2.redhat.com`* (to match our environment domain).
 - **OpenShift version**: *`OpenShift 4.13.13`* (latest version at the time I'm writing this).
 - **CPU architecture**: *`x86_64`* (our bare metal host uses Intel architecture).

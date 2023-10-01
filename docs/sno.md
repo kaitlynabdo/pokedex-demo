@@ -12,7 +12,7 @@ As you can see there are plenty of fields that we can configure in our cluster:
 - **Base domain**: *`pemlab.rdu2.redhat.com`* (to match our environment domain).
 - **OpenShift version**: *`OpenShift 4.13.13`* (latest version at the time I'm writing this).
 - **CPU architecture**: *`x86_64`* (our bare metal host uses Intel architecture).
-- Check the "**Install single node OpenShift (SNO)**" box.
+- [X] Check the "**Install single node OpenShift (SNO)**" box.
 
 Finally, let's leave the rest of the parameters as default and click on the blue “**Next**” button until you reach the *Host Discovery* section.
 > **Note**

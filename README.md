@@ -4,7 +4,7 @@ The objective of this project is develop a real-time detection system using arti
 ## Steps
 1. **[Single Node OpenShift installation using the Assisted Installer on baremetal](docs/sno.md)**
 2. **[Infrastructure configuration](docs/infra.md)**
-3. **[Red Hat OpenShift Data Science (RHODS) deployment](docs/rhods.md)**
+3. **[Red Hat OpenShift Data Science (RHODS) setup](docs/rhods.md)**
 4. **[WIP] [Labeling a custom dataset using Label Studio](docs/labeling.md)**
 5. **[WIP] [Deploy the Computer Vision Annotation Tool (CVAT) on OpenShift Virtualization](docs/cvat.md)**
 8. **[WIP][YOLOv5 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](docs/training.md)**

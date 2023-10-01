@@ -52,4 +52,35 @@ It's time to create the virtual machine where the CVAT application will be deplo
 
 Finally, select "**Create VirtualMachine**" and wait until your virtual machine comes up.
 
+We can access the new virtual machine from our terminal. Run the following command to get the virtual machine instance (vmi) name: 
+```
+oc get vmi
+```
+
+This will show you the vmi (*cvat* in my case):
+```
+NAME          AGE    PHASE     IP             NODENAME                      READY
+labelstudio   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
+```
+
+Use the name displayed above to access the virtual machine from your terminal:
+```
+virtcl console labelstudio
+```
 ## Label Studio deployment
+
+The first steps should be for installing and configuring docker:
+```
+sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+sudo dnf install docker-ce --nobest -y
+sudo systemctl enable --now docker
+sudo docker login
+
+systemctl is-active docker
+systemctl is-enabled docker
+sudo docker --version
+
+sudo usermod -aG docker centos
+```
+
+Reboot the VM so that your group membership is re-evaluated.

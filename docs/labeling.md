@@ -96,3 +96,5 @@ docker run -it -p 8080:8080 -v $(pwd)/mydata:/label-studio/data heartexlabs/labe
 ```
 
 Once the installation finishes, we can access the Label Studio graphical interface from a web browser: `http://localhost:8080/`.
+
+## Labeling custom dataset

@@ -66,7 +66,7 @@ NAME                AGE    PHASE     IP             NODENAME                    
 rhel9-labelstudio   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
 ```
 
-Use the name displayed above to access the virtual machine from your terminal:
+Use the name displayed above to access the virtual machine from your terminal. You need to log in with your VM credentials (user:`cloud-user` and the `password` you set up during the VM creation):
 > **Note**
 > If the `virtcl` packages are not installed, you can follow the [Installing virtctl documentation](https://docs.openshift.com/container-platform/4.13/virt/virt-using-the-cli-tools.html#installing-virtctl_virt-using-the-cli-tools). 
 

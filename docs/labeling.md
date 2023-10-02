@@ -66,33 +66,32 @@ NAME                 AGE    PHASE     IP             NODENAME                   
 centos-labelstudio   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
 ```
 
-Use the name displayed above to access the virtual machine from your terminal. You need to log in with your VM credentials (user:`cloud-user` and the `password` you set up during the VM creation):
+Use the name displayed above to access the virtual machine from your terminal. You need to log in with your VM credentials (user:`centos` and the `password` you set up during the VM creation):
 > **Note**
 > If the `virtcl` packages are not installed, you can follow the [Installing virtctl documentation](https://docs.openshift.com/container-platform/4.13/virt/virt-using-the-cli-tools.html#installing-virtctl_virt-using-the-cli-tools). 
 
 ```
-virtctl console rhel9-labelstudio
+virtctl console centos-labelstudio
 ```
 
 ## Label Studio deployment
 The first steps should be installing and configuring docker:
 ```
-sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+sudo dnf install docker-ce --nobest -y
+sudo systemctl enable --now docker
+sudo docker login
 
-sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-sudo systemctl start docker
-sudo systemctl is-active docker
-sudo systemctl is-enabled docker
+systemctl is-active docker
+systemctl is-enabled docker
 sudo docker --version
 
-sudo usermod -aG docker cloud-user
+sudo usermod -aG docker centos
 ```
 
 Reboot the VM so that your group membership is re-evaluated. Once the VM comes up again, we can install the Label Studio software on it:
 ```
-docker run -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data HumanSignal/label-studio:latest
+docker run -it -p 8080:8080 -v $(pwd)/mydata:/label-studio/data heartexlabs/label-studio:latest
 ```
 
 Once the installation finishes, we can access the Label Studio graphical interface from a web browser: `http://localhost:8080/`.

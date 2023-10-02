@@ -2,9 +2,11 @@
 Label Studio's open-source solution comes containerized. That's why we will need to use OpenShift Virtualization to make it work in our OpenShift node. This instance will allow us to create, run and manage virtual machines and virtualized workloads.
 
 ## OpenShift Virtualization installation
-It's time to proceed with the Virtualization installation. In our Web Console, we need to navigate to the "**Operators**" tab and select "**OperatorHub**". In the search box type `Virtualization` and the operator we are looking for will appear. Select it and click on "**Install**" on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case we can proceed with the default ones. Press "**Install**" again and wait until the installation finishes. 
+It's time to proceed with the Virtualization installation. In our Web Console, we need to navigate to the "**Operators**" tab and select "**OperatorHub**". In the search box type `Virtualization` and select the "**OpenShift Virtualization**" operator. Select it and click on "**Install**" on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case we can proceed with the default ones. Press "**Install**" again and wait until the installation finishes. 
 
-Once completed, we will need to "**Create HyperConverged**" custom resource. Again, we can omit changing any configuration. Finally, click "**Create**" to launch the OpenShift Virtualization installation. Wait until the Status says "**Reconcile completed, Available**".
+![Virtualization configuration](/docs/images/labeling_virt.png)
+
+Once completed, we will need to "**Create HyperConverged**" custom resource. Again, we can omit changing any configuration. Finally, click "**Create**" to launch the OpenShift Virtualization installation. Wait until the *Status* says `Reconcile completed, Available`.
 
 We can verify the installation progress from the terminal window. All OpenShift Virtualization pods will be deployed on the namespace *openshift-cnv*, so we can run this command to check the status:
 ```
@@ -42,34 +44,38 @@ virt-template-validator-8688f84c96-9msk7               1/1     Running   0      
 Going back to our Web Console, if we reload the page, we can see that a "**Virtualization**" tab has been added to the menu on the left side. 
 
 ## Create Virtual Machine
-It's time to create the virtual machine where the CVAT application will be deployed. In the "**Virtualization**" page, click on "**Create VM from catalog**". This will forward us to the catalog where all the different VM templates are listed. I will choose the "**CentOS Stream 9**" as the operating system for my VM. When we select it, a pop up window will appear on the right side of the page. Click on "**Customize VirtualMachine**" and complete the following fields:
-- **Name**: *labelstudio* (type your preferred name for the VM).
-- **Disk source**: *URL (creates PVC)*.
-- **Image URL**: *https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20220914.0.x86_64.qcow2*
-- **Disk size**: *40 GiB*
-- **CLOUD_USER_PASSWORD**: *«vm_password»*
-- **CPU | Memory**: *2CPU / 4GiB*
+It's time to create the virtual machine where the Label Studio software will be deployed. In the "**Virtualization**" section, select "**VirtualMachines**". Now, click on "**Create VirtualMachine**". This will forward us to the catalog where all the different VM templates are listed. I will choose the "**Red Hat Enterprise Linux 9 VM**" as the operating system for my VM. When we select it, a pop up window will appear on the right side of the page. Click on "**Customize VirtualMachine**" and complete the following fields:
+- **Name**: *`rhel9-labelstudio`* (type your preferred name for the VM).
+- **Storage > Disk source**: *`Template default`* (should be already selected as the boot source).
+- **Optional parameters > CLOUD_USER_PASSWORD**: *«vm_password»*.
+- **Optional parameters > DATA_SOURCE_NAME**: *`rhel9`*.
+- **Optional parameters > DATA_SOURCE_NAMESPACE**: *`openshift-virtualization-os-images`*.
 
-Finally, select "**Create VirtualMachine**" and wait until your virtual machine comes up.
+Click on "**Next**" and then, "**Create VirtualMachine**" and wait until your virtual machine comes up (*Status*: `Running`):
 
-We can access the new virtual machine from our terminal. Run the following command to get the virtual machine instance (vmi) name: 
+![Virtual Machine](/docs/images/labeling_vm.png)
+
+We can also access the new virtual machine from our terminal. Run the following command to get the virtual machine instance (vmi) name: 
 ```
 oc get vmi
 ```
 
-This will show you the vmi (*cvat* in my case):
+This will show you the vmi (`rhel9-labelstudio` in my case):
 ```
-NAME          AGE    PHASE     IP             NODENAME                      READY
-labelstudio   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
+NAME                AGE    PHASE     IP             NODENAME                      READY
+rhel9-labelstudio   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
 ```
 
 Use the name displayed above to access the virtual machine from your terminal:
-```
-virtcl console labelstudio
-```
-## Label Studio deployment
+> **Note**
+> If the `virtcl` packages are not installed, you can follow the [Installing virtctl documentation](https://docs.openshift.com/container-platform/4.13/virt/virt-using-the-cli-tools.html#installing-virtctl_virt-using-the-cli-tools). 
 
-The first steps should be for installing and configuring docker:
+```
+virtctl console rhel9-labelstudio
+```
+
+## Label Studio deployment
+The first steps should be installing and configuring docker:
 ```
 sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 sudo dnf install docker-ce --nobest -y

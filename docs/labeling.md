@@ -44,26 +44,26 @@ virt-template-validator-8688f84c96-9msk7               1/1     Running   0      
 Going back to our Web Console, if we reload the page, we can see that a "**Virtualization**" tab has been added to the menu on the left side. 
 
 ## Create Virtual Machine
-It's time to create the virtual machine where the Label Studio software will be deployed. In the "**Virtualization**" section, select "**VirtualMachines**". Now, click on "**Create VirtualMachine**". This will forward us to the catalog where all the different VM templates are listed. I will choose the "**Red Hat Enterprise Linux 9 VM**" as the operating system for my VM. When we select it, a pop up window will appear on the right side of the page. Click on "**Customize VirtualMachine**" and complete the following fields:
-- **Name**: *`rhel9-labelstudio`* (type your preferred name for the VM).
+It's time to create the virtual machine where the Label Studio software will be deployed. In the "**Virtualization**" section, select "**VirtualMachines**". Now, click on "**Create VirtualMachine**". This will forward us to the catalog where all the different VM templates are listed. I will choose the "**CentOS Stream 9 VM**" as the operating system for my VM. When we select it, a pop up window will appear on the right side of the page. Click on "**Customize VirtualMachine**" and complete the following fields:
+- **Name**: *`centos-labelstudio`* (type your preferred name for the VM).
 - **Storage > Disk source**: *`Template default`* (should be already selected as the boot source).
 - **Optional parameters > CLOUD_USER_PASSWORD**: *«vm_password»*.
-- **Optional parameters > DATA_SOURCE_NAME**: *`rhel9`*.
+- **Optional parameters > DATA_SOURCE_NAME**: *`centos-stream9`*.
 - **Optional parameters > DATA_SOURCE_NAMESPACE**: *`openshift-virtualization-os-images`*.
 
 Click on "**Next**" and then, "**Create VirtualMachine**" and wait until your virtual machine comes up (*Status*: `Running`):
 
-![Virtual Machine](/docs/images/labeling_vm.png)
+![Virtual Machine](/docs/images/labeling_centos.png)
 
 We can also access the new virtual machine from our terminal. Run the following command to get the virtual machine instance (vmi) name: 
 ```
 oc get vmi
 ```
 
-This will show you the vmi (`rhel9-labelstudio` in my case):
+This will show you the vmi (`centos-labelstudio` in my case):
 ```
-NAME                AGE    PHASE     IP             NODENAME                      READY
-rhel9-labelstudio   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
+NAME                 AGE    PHASE     IP             NODENAME                      READY
+centos-labelstudio   4d3h   Running   10.128.0.116   r740.pemlab.rdu2.redhat.com   True
 ```
 
 Use the name displayed above to access the virtual machine from your terminal. You need to log in with your VM credentials (user:`cloud-user` and the `password` you set up during the VM creation):
@@ -77,16 +77,22 @@ virtctl console rhel9-labelstudio
 ## Label Studio deployment
 The first steps should be installing and configuring docker:
 ```
-sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-sudo dnf install docker-ce --nobest -y
-sudo systemctl enable --now docker
-sudo docker login
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
 
-systemctl is-active docker
-systemctl is-enabled docker
+sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo systemctl start docker
+sudo systemctl is-active docker
+sudo systemctl is-enabled docker
 sudo docker --version
 
-sudo usermod -aG docker centos
+sudo usermod -aG docker cloud-user
 ```
 
-Reboot the VM so that your group membership is re-evaluated.
+Reboot the VM so that your group membership is re-evaluated. Once the VM comes up again, we can install the Label Studio software on it:
+```
+docker run -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data HumanSignal/label-studio:latest
+```
+
+Once the installation finishes, we can access the Label Studio graphical interface from a web browser: `http://localhost:8080/`.

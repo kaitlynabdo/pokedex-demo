@@ -86,6 +86,7 @@ systemctl is-active docker
 systemctl is-enabled docker
 sudo docker --version
 
+sudo chmod -R 777 mydata/
 sudo usermod -aG docker centos
 ```
 

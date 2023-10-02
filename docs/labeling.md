@@ -1,5 +1,5 @@
 # Labeling a custom dataset using Label Studio
-Label Studio's open-source solution comes containarized. That's why we will need to use OpenShift Virtualization to make it work in our OpenShift node. This instance will allow us to create, run and manage virtual machines and virtualized workloads.
+Label Studio's open-source solution comes containerized. That's why we will need to use OpenShift Virtualization to make it work in our OpenShift node. This instance will allow us to create, run and manage virtual machines and virtualized workloads.
 
 ## OpenShift Virtualization installation
 It's time to proceed with the Virtualization installation. In our Web Console, we need to navigate to the "**Operators**" tab and select "**OperatorHub**". In the search box type `Virtualization` and the operator we are looking for will appear. Select it and click on "**Install**" on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case we can proceed with the default ones. Press "**Install**" again and wait until the installation finishes. 
@@ -42,7 +42,7 @@ virt-template-validator-8688f84c96-9msk7               1/1     Running   0      
 Going back to our Web Console, if we reload the page, we can see that a "**Virtualization**" tab has been added to the menu on the left side. 
 
 ## Create Virtual Machine
-It's time to create the virtual machine where the CVAT application will be deployed. In the "**Virtualization**" page, click on "**Create VM from catalog**". This will forward us to the catalag where all the different VM templates are listed. I will choose the "**CentOS Stream 9**" as the operating system for my VM. When we select it, a pop up window will appear on the right side of the page. Click on "**Customize VirtualMachine**" and complete the following fields:
+It's time to create the virtual machine where the CVAT application will be deployed. In the "**Virtualization**" page, click on "**Create VM from catalog**". This will forward us to the catalog where all the different VM templates are listed. I will choose the "**CentOS Stream 9**" as the operating system for my VM. When we select it, a pop up window will appear on the right side of the page. Click on "**Customize VirtualMachine**" and complete the following fields:
 - **Name**: *labelstudio* (type your preferred name for the VM).
 - **Disk source**: *URL (creates PVC)*.
 - **Image URL**: *https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-20220914.0.x86_64.qcow2*

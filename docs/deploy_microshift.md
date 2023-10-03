@@ -33,7 +33,7 @@ It's time to start the MicroShift service:
 sudo systemctl start microshift
 ```
 
-Copy the kubeconfig file to the right folder adn give it the permissions needed:
+Copy the kubeconfig file to the right folder and give it the permissions needed:
 ```
 mkdir -p ~/.kube/
 ```
@@ -221,7 +221,7 @@ Now we can build the image. We will tag it to match our quay.io repository url:
 podman build -t quay.io/dialvare/pokedex:latest .
 ```
 
-Log in and push the image to your repo:
+Log in and push the image to your repo. Make sure you make your repository Public once finished!:
 ```
 podman login quay.io
 podman push quay.io/dialvare/pokedex:latest
@@ -315,6 +315,6 @@ kubernetes        ClusterIP   10.43.0.1     <none>        443/TCP          10h
 pokedex-service   NodePort    10.43.39.87   <none>        5000:30000/TCP   4h18m
 ```
 
-Once the `pokedex` pod is in a `Running` state, we can access the *`10.43.39.87:5000`* URL from a Web Browser.
+Once the `pokedex` pod is in a `Running` state, we can access the *`10.43.39.87:5000/pokedex`* URL from a Web Browser.
 
 ![Pokemon detection](/docs/images/microshift_detection.png)

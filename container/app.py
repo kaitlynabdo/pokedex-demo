@@ -35,8 +35,6 @@ def get_frame():
             yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffered.getbuffer().tobytes() + b'\r\n')
             time.sleep(0.2)
 
-
-
 def read_video():
     global cap, stream, results
     while (stream.isOpened()):
@@ -54,33 +52,20 @@ def read_video():
 
 @app.route('/mjpeg')
 def get_image():
-#    global stream
-#    args = request.args
-#    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
-#    stream = cv2.VideoCapture(video_path)
-#    t=threading.Thread(target=read_video)
-#    t.start()
-
     return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/')
 def index():
-#    args = request.args
-#    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
     return """
     <body style="background: black;">
-#        <h2>{video_path}</h2>
         <div style="width: 240px; margin: 0px auto;">
             <img src="/mjpeg" />
         </div>
     </body>
     """
 
-
 if __name__ == '__main__':
     t=threading.Thread(target=read_video)
     t.start()
-    
     app.run(host='0.0.0.0', port=5000, threaded=True)
-

@@ -10,7 +10,7 @@
 
     <script>
         // Connect to the WebSocket server
-        const socket = io.connect('http://orin.dherouville.home:5000');
+        const socket = io.connect('127.0.0.1:5000');
 
         // Handle new image frames received from the server
         socket.on('image', function (data) {
@@ -26,4 +26,3 @@
     </script>
 </body>
 </html>
-

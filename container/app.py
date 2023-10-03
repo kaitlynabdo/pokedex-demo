@@ -50,7 +50,7 @@ def read_video():
         except:
             continue
 
-@app.route('/mjpeg')
+@app.route('/pokedex')
 def get_image():
     return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 

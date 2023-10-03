@@ -7,5 +7,5 @@ The objective of this project is develop a real-time detection system using arti
 3. **[Red Hat OpenShift Data Science (RHODS) set up](docs/rhods.md)**
 4. **[WIP] [Labeling a custom dataset using Label Studio](docs/labeling.md)**
 5. **[WIP] [YOLOv5 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](docs/training.md)**
-6. **[WIP] [Pokedex application deployment using MicroShift](docs/deploy_microshift.md)**
+6. **[Pokedex application deployment using MicroShift](docs/deploy_microshift.md)**
 

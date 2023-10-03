@@ -46,6 +46,9 @@ chmod go-r ~/.kube/config
 
 And finally, we can connect to our MicroShift instance. We should see the following list with the pods `Running`:
 ```
+oc get pods -A
+```
+```
 NAMESPACE                  NAME                                       READY   STATUS    RESTARTS        AGE
 kube-system                csi-snapshot-controller-5875fd4f9d-mtgdh   1/1     Running   2               28h
 kube-system                csi-snapshot-webhook-5c969d4577-5pvm5      1/1     Running   2               28h

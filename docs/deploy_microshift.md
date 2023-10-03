@@ -5,18 +5,7 @@ Create a new Virtual Machine and install RHEL 9.2 there. You can get the RHEL 9.
 ## Configuring MicroShift
 Now it's time to install MicroShift. We just need to follow the official documentation available in the [Product page](https://access.redhat.com/documentation/en-us/red_hat_build_of_microshift/4.13/html/installing/microshift-install-rpm). 
 
-In our case, we also had to extend the volume group to get some *VFree* space. This was the process we followed: 
-```
-sudo lsblk
-```
-```
-sudo pvcreate /dev/sdb
-```
-```
-sudo vgextend rhel_ibm-p8-kvm-03-guest-02 /dev/sdb
-```
-
-Now we can proceed with the MicroShift installation. To get the right *rpm* packages we need to enable two repositories: 
+To get the right *rpm* packages we need to enable two repositories: 
 ```
 sudo subscription-manager repos \
 --enable rhocp-4.13-for-rhel-9-$(uname -m)-rpms \
@@ -28,7 +17,7 @@ Install MicroShift from there:
 sudo dnf install -y microshift
 ```
 
-Download your installation pull secret from the [Red Hat Hybrid Cloud Console](https://console.redhat.com/openshift/install/pull-secret). We will use it to authenticate with the container registries that we will be using. Then, copy the file to the */etc/crio* folder and give it the right permissions:
+Download your installation pull secret from the [Red Hat Hybrid Cloud Console](https://console.redhat.com/openshift/install/pull-secret). We will use it to authenticate with the container registries that we will be using. Then, copy the file to the `/etc/crio` folder and give it the right permissions:
 ```
 sudo cp $HOME/openshift-pull-secret /etc/crio/openshift-pull-secret
 ```
@@ -54,7 +43,8 @@ sudo cat /var/lib/microshift/resources/kubeadmin/kubeconfig > ~/.kube/config
 ```
 chmod go-r ~/.kube/config
 ```
-And finally, we can connect to our MicroShift instance. We should see the following list with the pods Running:
+
+And finally, we can connect to our MicroShift instance. We should see the following list with the pods `Running`:
 ```
 NAMESPACE                  NAME                                       READY   STATUS    RESTARTS        AGE
 kube-system                csi-snapshot-controller-5875fd4f9d-mtgdh   1/1     Running   2               28h
@@ -110,8 +100,7 @@ COPY . /app
 CMD ["python3", "app.py"]
 ```
 
-This Container will use an *ubi9* + *python* image as a base. Then, we will need to install the python dependencies and clone the YOLO repository. The image will also contain the code present in *`app.py`*.
-Let's take a look to it:
+This Container will use an `ubi9` + `python` image as a base. Then, we will need to install the python dependencies and clone the YOLO repository. The image will also contain the code present in *`app.py`*. Let's take a look to it:
 ```
 vi app.py
 ```
@@ -137,7 +126,8 @@ model = torch.hub.load('yolov5', 'custom', path='/app/best.pt', source='local')
 
 app = Flask(__name__)
 
-stream = None
+video_path = '/app/pokemon.mp4'
+stream = cv2.VideoCapture(video_path)
 results = None
 results_lock = None
 
@@ -151,8 +141,6 @@ def get_frame():
                 im_base64.save(buffered, format="JPEG")
             yield (b'--frame\r\nContent-Type: image/jpeg\r\n\r\n' + buffered.getbuffer().tobytes() + b'\r\n')
             time.sleep(0.2)
-
-
 
 def read_video():
     global cap, stream, results
@@ -171,35 +159,59 @@ def read_video():
 
 @app.route('/mjpeg')
 def get_image():
-    global stream
-    args = request.args
-    video_path=args.get("video", defualt='/app/pokemon.mp4', type=str)
-    stream = cv2.VideoCapture(video_path)
-    t=threading.Thread(target=read_video)
-    t.start()
-
     return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
-    args = request.args
-    video_path = args.get("video", default='/app/pokemon.mp4', type=str)
-    return f"""
+    return """
     <body style="background: black;">
-        <h2>{video_path}</h2>
         <div style="width: 240px; margin: 0px auto;">
-            <img src="/mjpeg?video={video_path}" />
+            <img src="/mjpeg" />
         </div>
     </body>
     """
 
-
 if __name__ == '__main__':
+    t=threading.Thread(target=read_video)
+    t.start()
     app.run(host='0.0.0.0', port=5000, threaded=True)
 ```
 
-As you can see, we are using the weights file *`best.pt`* and the *`pokemon.mp4`* video file we had on the folder. 
+As you can see, we are using the weights file *`best.pt`* and the *`pokemon.mp4`* video file we had on the folder. Also it will use the `index.html` file present in the *templates* folder:
+```
+vi ./templates/index.html
+```
+```
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Image Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+</head>
+<body>
+    <h1>WebSocket Image Viewer</h1>
+    <div id="image-container"></div>
+
+    <script>
+        // Connect to the WebSocket server
+        const socket = io.connect('127.0.0.1:5000');
+
+        // Handle new image frames received from the server
+        socket.on('image', function (data) {
+            // Create an <img> element to display the image
+            const image = document.createElement('img');
+            image.src = 'data:image/jpeg;base64,' + data;
+
+            // Append the image to the container
+            const container = document.getElementById('image-container');
+            container.innerHTML = '';
+            container.appendChild(image);
+        });
+    </script>
+</body>
+</html>
+```
 
 Now we can build the image. We will tag it to match our quay.io repository url:
 ```
@@ -255,7 +267,7 @@ spec:
       hostAliases:
         - ip: "127.0.0.1"
           hostnames:
-          - "hackfest"
+          - "microshift"
       args:
         - "/etc/hosts"
 ```
@@ -265,7 +277,7 @@ As can be seen, we will deploy the image we have just built. Run the following c
 oc apply -f deployment_pokedex.yaml --insecure-skip-tls-verify=true
 ```
 
-Once the pod is running, we need to deploy the service:
+While the pod is starting, we can also deploy the service:
 ```
 vi svc_pokedex.yaml
 ```
@@ -300,5 +312,6 @@ kubernetes        ClusterIP   10.43.0.1     <none>        443/TCP          10h
 pokedex-service   NodePort    10.43.39.87   <none>        5000:30000/TCP   4h18m
 ```
 
-Finally, access the *`10.43.39.87:5000`* URL from a Web Browser.
+Once the `pokedex` pod is in a `Running` state, we can access the *`10.43.39.87:5000`* URL from a Web Browser.
 
+![Pokemon detection](/docs/images/microshift_detection.png)

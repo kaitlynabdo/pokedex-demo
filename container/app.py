@@ -12,7 +12,7 @@ import base64
 import time
 import os
 import eventlet
-
+import pandas
 
 # Model
 model = torch.hub.load('yolov5', 'custom', path='/app/best.pt', source='local')
@@ -23,6 +23,7 @@ video_path = '/app/pokemon.mp4'
 stream = cv2.VideoCapture(video_path)
 results = None
 results_lock = None
+name = None
 
 def get_frame():
     while True:
@@ -54,6 +55,11 @@ def read_video():
 def get_image():
     return Response(get_frame(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/stats')
+def get_stats():
+    global name
+    name = str(results.pandas().xyxy[0]['name'][0])
+    return name
 
 @app.route('/')
 def index():

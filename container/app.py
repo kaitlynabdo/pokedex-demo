@@ -58,8 +58,9 @@ def get_image():
 @app.route('/stats')
 def get_stats():
     global name
-    name = str(results.pandas().xyxy[0]['name'][0])
-    return name
+    while True:
+        name = str(results.pandas().xyxy[0]['name'][0])
+        return "A wild "+name+" appeared!!!" if name != None else "No pokemons in sight..."
 
 @app.route('/')
 def index():

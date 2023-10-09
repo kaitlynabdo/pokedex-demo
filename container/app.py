@@ -24,6 +24,8 @@ stream = cv2.VideoCapture(video_path)
 results = None
 results_lock = None
 name = None
+stats = None 
+row = None
 
 def get_frame():
     while True:
@@ -58,9 +60,12 @@ def get_image():
 @app.route('/stats')
 def get_stats():
     global name
-    while True:
-        name = str(results.pandas().xyxy[0]['name'][0])
-        return "A wild "+name+" appeared!!!" if name != None else "No pokemons in sight..."
+    global stats
+    global row
+    stats = pandas.read_csv('/app/stats.csv')
+    name = str(results.pandas().xyxy[0]['name'][0])
+    row = stats.locate[name].to_string()
+    return "A wild "+name+" appeared!!! if name != None else "No pokemons in sight..."
 
 @app.route('/')
 def index():

@@ -26,6 +26,11 @@ results_lock = None
 name = None
 stats = None 
 row = None
+type1 = None 
+hp = None
+attack = None
+defense = None
+speed = None
 
 def get_frame():
     while True:
@@ -62,10 +67,20 @@ def get_stats():
     global name
     global stats
     global row
-    stats = pandas.read_csv('/app/stats.csv')
+    global type1
+    global hp
+    global attack
+    global defense
+    global speed
+    stats = pandas.read_csv('/app/stats.csv')   
     name = str(results.pandas().xyxy[0]['name'][0])
-    row = stats.locate[name].to_string()
-    return "A wild "+name+" appeared!!! if name != None else "No pokemons in sight..."
+    row = stats.loc[stats['Name'] == name].values.tolist()
+    type1 = str(row[0][3])
+    hp = str(row[0][6])
+    attack = str(row[0][7])
+    defense = str(row[0][8])
+    speed = str(row[0][11])
+    return "A wild "+name+" appeared!!!\nType: "+type1+"\nHP: "+hp+"\nAttack: "+attack+"\nDefense: "+defense+"\nSpeed: "+speed"
 
 @app.route('/')
 def index():

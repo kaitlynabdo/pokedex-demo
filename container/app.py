@@ -80,7 +80,7 @@ def get_stats():
     attack = str(row[0][7])
     defense = str(row[0][8])
     speed = str(row[0][11])
-    return "A wild "+name+" appeared!!!\nType: "+type1+"\nHP: "+hp+"\nAttack: "+attack+"\nDefense: "+defense+"\nSpeed: "+speed"
+    return "A wild "+name+" appeared!!!\nType: "+type1+"\nHP: "+hp+"\nAttack: "+attack+"\nDefense: "+defense+"\nSpeed: "+speed
 
 @app.route('/')
 def index():

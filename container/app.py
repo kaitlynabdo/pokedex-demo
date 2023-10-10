@@ -81,8 +81,8 @@ def get_stats():
         attack = str(row[0][7])
         defense = str(row[0][8])
         speed = str(row[0][11])
-        return "A wild "+name+" appeared!!!\nType: "+type1+"\nHP: "+hp+"\nAttack: "+attack+"\nDefense: "+defense+"\nSpeed: "+speed
-    
+        return render_template('stats.html', name=name, type1=type1, hp=hp, attack=attack, defense=defense, speed=speed) 
+
     except:
         return "No pokemons in sight..."
 

@@ -73,14 +73,18 @@ def get_stats():
     global defense
     global speed
     stats = pandas.read_csv('/app/stats.csv')   
-    name = str(results.pandas().xyxy[0]['name'][0])
-    row = stats.loc[stats['Name'] == name].values.tolist()
-    type1 = str(row[0][3])
-    hp = str(row[0][6])
-    attack = str(row[0][7])
-    defense = str(row[0][8])
-    speed = str(row[0][11])
-    return "A wild "+name+" appeared!!!\nType: "+type1+"\nHP: "+hp+"\nAttack: "+attack+"\nDefense: "+defense+"\nSpeed: "+speed
+    try:
+        name = str(results.pandas().xyxy[0]['name'][0])
+        row = stats.loc[stats['Name'] == name].values.tolist()
+        type1 = str(row[0][3])
+        hp = str(row[0][6])
+        attack = str(row[0][7])
+        defense = str(row[0][8])
+        speed = str(row[0][11])
+        return "A wild "+name+" appeared!!!\nType: "+type1+"\nHP: "+hp+"\nAttack: "+attack+"\nDefense: "+defense+"\nSpeed: "+speed
+    
+    except:
+        return "No pokemons in sight..."
 
 @app.route('/')
 def index():

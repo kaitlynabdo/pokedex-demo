@@ -1,6 +1,10 @@
 const video = document.querySelector("video");
-let interval
+
+const worker = new Worker("/static/worker.js");
 let boxes = [];
+let interval
+let busy = false;
+
 video.addEventListener("play", async() => {
     const canvas = document.querySelector("canvas");
     canvas.width = video.videoWidth;
@@ -10,10 +14,19 @@ video.addEventListener("play", async() => {
         context.drawImage(video,0,0);
         draw_boxes(canvas, boxes);
         const input = prepare_input(canvas);
-        const output = await run_model(input);
-        boxes = process_output(output, canvas.width, canvas.height);
+        if (!busy) {
+            worker.postMessage(input);
+            busy = true;
+        }        
     },30)
 });
+
+worker.onmessage = (event) => {
+    const output = event.data;
+    const canvas = document.querySelector("canvas");
+    boxes =  process_output(output, canvas.width, canvas.height);
+    busy = false;
+};
 
 video.addEventListener("pause", () => {
     clearInterval(interval);
@@ -43,13 +56,6 @@ function prepare_input(img) {
         blue.push(data[index+2]/255);
     }
     return [...red, ...green, ...blue];
-}
-
-async function run_model(input) {
-    const model = await ort.InferenceSession.create("/static/yolov8n.onnx");
-    input = new ort.Tensor(Float32Array.from(input),[1, 3, 640, 640]);
-    const outputs = await model.run({images:input});
-    return outputs["output0"].data;
 }
 
 function process_output(output, img_width, img_height) {

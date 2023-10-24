@@ -19,7 +19,7 @@ model = torch.hub.load('yolov5', 'custom', path='/app/best.pt', source='local')
 
 app = Flask(__name__)
 
-video_path = '/app/pokemon.mp4'
+video_path = '/app/pokemon3.mp4'
 stream = cv2.VideoCapture(video_path)
 results = None
 results_lock = None

@@ -104,3 +104,5 @@ In the **Labeling Setup** tab, we are going to select our template we'll use to 
 
 Click **Label all tasks**
 click on the label corresponding to what you want to label or press that number on your keyboard. click and drag to select and press submit once you're finished labeling that image. Continue this process until you have labeled all of your data. 
+
+once youre done labeling, click export then select YOLO. 

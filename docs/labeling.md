@@ -100,9 +100,14 @@ Once the installation finishes, we can access the Label Studio graphical interfa
 ## Labeling custom dataset
 Once you've accessed the webpage and logged in, we are going to begin labeling our custom dataset. We are going to first create our project by selecting the **Create** button in the top right hand corner. In the **Project Name** tab, you can use whatever name matches your dataset best; in our case, we are just going to name it *pokedex*. Next, we will import the images we want to label in the **Data Import** tab. 
 
+![ezgif com-video-to-gif](https://github.com/kaitlynabdo/pokedex-demo/assets/45447032/1ba1e687-0f1f-4964-9769-34b8990036a9)
+
 In the **Labeling Setup** tab, we are going to select our template we'll use to label our images. Select the **Object Detection with Bounding Boxes**. From there, we will create our labels for our custom data set. Delete the existing labels, type the new labels in the **Add label names** box and add them to the **Labels** list. After that, we'll select **Save** to begin labeling our data. 
 
-Click **Label all tasks**
-click on the label corresponding to what you want to label or press that number on your keyboard. click and drag to select and press submit once you're finished labeling that image. Continue this process until you have labeled all of your data. 
+![ezgif com-video-to-gif (1)](https://github.com/kaitlynabdo/pokedex-demo/assets/45447032/2f4bd787-20c8-4a1d-919a-c917b3ee759e)
 
-once youre done labeling, click export then select YOLO. 
+From the project dashboard, we're going to select **Label all tasks**, which will take you to the first image to label. To select a label, you can either click the corresponding label or press the number on your keyboard that corresponds to the label. The Pikachu labeled as 1, you can either press the 1 key on your keyboard or select the label using your cursor. Once you are done labeling, submit them and return to the project dashboard. 
+
+Finally, we'll export our labeled data so we can begin model training. In the top right corner, select **Export**. Since we will use this data to train YOLO object detection models, export the data in the *YOLO* format. 
+
+Now that we have our data, let's head over to our RHODS workbench to get started with model training. 

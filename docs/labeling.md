@@ -2,7 +2,7 @@
 Label Studio's open-source solution comes containerized. That's why we will need to use OpenShift Virtualization to make it work in our OpenShift node. This instance will allow us to create, run and manage virtual machines and virtualized workloads.
 
 ## OpenShift Virtualization installation
-It's time to proceed with the Virtualization installation. In our Web Console, we need to navigate to the "**Operators**" tab and select "**OperatorHub**". In the search box type `Virtualization` and select the "**OpenShift Virtualization**" operator. Select it and click on "**Install**" on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case we can proceed with the default ones. Press "**Install**" again and wait until the installation finishes. 
+It's time to proceed with the Virtualization installation. In our Web Console, we need to navigate to the "**Operators**" tab and select "**OperatorHub**". In the search box type `Virtualization` and select the "**OpenShift Virtualization**" operator. Select it and click on "**Install**" on the right side of the screen. The next page will allow us to modify some configuration parameters, but in this case, we can proceed with the default ones. Press "**Install**" again and wait until the installation finishes. 
 
 ![Virtualization configuration](/docs/images/labeling_virt.png)
 
@@ -98,4 +98,9 @@ docker run -it -p 8080:8080 -v $(pwd)/mydata:/label-studio/data heartexlabs/labe
 Once the installation finishes, we can access the Label Studio graphical interface from a web browser: `http://localhost:8080/`.
 
 ## Labeling custom dataset
-[WIP]
+Once you've accessed the webpage and logged in, we are going to begin labeling our custom dataset. We are going to first create our project by selecting the **Create** button in the top right hand corner. In the **Project Name** tab, you can use whatever name matches your dataset best; in our case, we are just going to name it *pokedex*. Next, we will import the images we want to label in the **Data Import** tab. 
+
+In the **Labeling Setup** tab, we are going to select our template we'll use to label our images. Select the **Object Detection with Bounding Boxes**. From there, we will create our labels for our custom data set. Delete the existing labels, type the new labels in the **Add label names** box and add them to the **Labels** list. After that, we'll select **Save** to begin labeling our data. 
+
+Click **Label all tasks**
+click on the label corresponding to what you want to label or press that number on your keyboard. click and drag to select and press submit once you're finished labeling that image. Continue this process until you have labeled all of your data. 

@@ -57,7 +57,7 @@ Sometimes the drop-down does not show or is greyed out. It's a known bug, but do
 8. The *Number of GPUs* menu should be enabled now. Select how many you want to use (2 in my case). Click *Update workbench*.
 9. Turn on the workbench again and wait until the *Status* shows `Running`.
 
-
+**Next: [YOLOv5 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](training.md)**
 
 
 

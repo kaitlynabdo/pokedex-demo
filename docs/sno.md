@@ -113,5 +113,5 @@ Now log out from the Web Console and log in again with your new user. And that's
 
 In this first episode we have easily installed OpenShift in a single baremetal node, checked that everything is working correctly and enabled an Identity Provider to allow different users to access the node. In the next chapter we will focus on the **[Infrastructure configuration](https://github.com/dialvare/pokedex-demo/blob/main/docs/infra.md)** needed before starting working on the AI model.
 
-Next: [Infrastructure configuration](infra.md)
+**Next: [Infrastructure configuration](infra.md)**
 

@@ -127,5 +127,5 @@ In a few seconds you see the PVC status as `Bound`:
 
 With this last step we have completed the installation and configuration of the necessary infrastructure for our project. In the next section we will cover the [Red Hat OpenShift Data Science (RHODS) deployment](https://github.com/dialvare/pokedex-demo/blob/main/docs/rhods.md).
 
-Next: [Red Hat OpenShift Data Science (RHODS) set up](rhods.md)
+**Next: [Red Hat OpenShift Data Science (RHODS) set up](rhods.md)**
 

@@ -1,5 +1,5 @@
 # YOLOv5 training on a custom dataset on OpenShift AI
-Now that our RHODS environment is set up and our data has been prepared, we can begin model training and make some predictions. We will head back to the RHODS Dashboard to view our Data Science Projects. We'll start by opening the pokedex workbench. 
+Now that our RHOAI environment is set up and our data has been prepared, we can begin model training and make some predictions. We will head back to the RHOAI Dashboard to view our Data Science Projects. We'll start by opening the pokedex workbench. 
 
 <img width="1736" alt="Screenshot 2023-11-30 at 9 36 48 AM" src="https://github.com/kaitlynabdo/pokedex-demo/assets/45447032/85e7d75f-1c96-4426-b009-74eeae752565"><br>
 

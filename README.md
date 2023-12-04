@@ -4,8 +4,8 @@ The objective of this project is develop a real-time detection system using arti
 ## Steps
 1. **[Single Node OpenShift installation using the Assisted Installer on baremetal](docs/sno.md)**
 2. **[Infrastructure configuration](docs/infra.md)**
-3. **[Red Hat OpenShift Data Science (RHODS) set up](docs/rhods.md)**
+3. **[Red Hat OpenShift AI (RHOAI) set up](docs/rhods.md)**
 4. **[Labeling a custom dataset using Label Studio](docs/labeling.md)**
-5. **[YOLOv5 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](docs/training.md)**
+5. **[YOLOv5 training on a custom dataset on Red Hat OpenShift AI (RHOAI)](docs/training.md)**
 6. **[Pokedex application deployment using MicroShift](docs/deploy_microshift.md)**
 

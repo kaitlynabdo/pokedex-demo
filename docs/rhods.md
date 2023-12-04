@@ -1,15 +1,15 @@
-# Red Hat OpenShift Data Science (RHODS) set up
-Red Hat OpenShift Data Science (RHODS) combines the scalability and flexibility of containerization with the capabilities of machine learning and data analytics. With Red Hat OpenShift Data Science, data scientists and developers can efficiently collaborate, deploy, and manage their models and applications in a secure and streamlined environment.
+# Red Hat OpenShift AI (RHOAI) set up
+Red Hat OpenShift AI (RHOAI) combines the scalability and flexibility of containerization with the capabilities of machine learning and data analytics. With Red Hat OpenShift AI, data scientists and developers can efficiently collaborate, deploy, and manage their models and applications in a secure and streamlined environment.
 
 ## RHODS installation
-Red Hat OpenShift Data Science can be installed from the OpenShift Web Console. Navigate back to the "**Operators**" tab and select "**OperatorHub**". In the text box now type `RHODS` and select the "**Red Hat OpenShift Data Science**" operator and click on "**Install**". The defaults will be already configured so we will not need to modify any of them: 
+RHOAI can be installed from the OpenShift Web Console. Navigate back to the "**Operators**" tab and select "**OperatorHub**". In the text box now type `RHODS` and select the "**Red Hat OpenShift Data Science**" operator and click on "**Install**". The defaults will be already configured so we will not need to modify any of them: 
 
 ![RHODS installation](/docs/images/rhods_config.png)
 
 To start the installation press again the blue "**Install**" button. Once the status is `Succeeded`, the deployment has finished successfully.
 
 ## Create Data Science Project
-To access the RHODS Web Console, we can get it from the OCP Console. In the right side of the top bar, you will find an "**square icon**" formed by 9 smaller squares. Clik on it and select "**Red Hat OpenShift Data Science**":
+To access the RHOAI Web Console, we can get it from the OCP Console. In the right side of the top bar, you will find an "**square icon**" formed by 9 smaller squares. Clik on it and select "**Red Hat OpenShift Data Science**":
 
 ![RHODS console](/docs/images/rhods_console.png)
 
@@ -57,7 +57,7 @@ Sometimes the drop-down does not show or is greyed out. It's a known bug, but do
 8. The *Number of GPUs* menu should be enabled now. Select how many you want to use (2 in my case). Click *Update workbench*.
 9. Turn on the workbench again and wait until the *Status* shows `Running`.
 
-**Next: [YOLOv5 training on a custom dataset on Red Hat OpenShift Data Science (RHODS)](training.md)**
+**Next: [YOLOv5 training on a custom dataset on Red Hat OpenShift AI (RHOAI)](training.md)**
 
 
 
